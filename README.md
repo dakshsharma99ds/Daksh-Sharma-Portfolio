@@ -2,7 +2,7 @@
 
 This is a high-performance, neon-aesthetic personal portfolio designed to showcase my journey in development and design.
 
-**Live Demo:** https://daksh-sharma-portfolio-react.vercel.app/
+**Live Demo:** https://daksh-sharma-portfolio.vercel.app/
 
 ---
 
