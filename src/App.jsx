@@ -9,9 +9,13 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [selectedCert, setSelectedCert] = useState(null); 
+  const [selectedCert, setSelectedCert] = useState(null);
+  const [activeSection, setActiveSection] = useState('home');
+  
+  const [currentCertIndex, setCurrentCertIndex] = useState(0);
   
   const menuRef = useRef(null);
+  const scrollRef = useRef(null);
   const hasTypedLabel = useRef(false);
   const hasTypedDesc = useRef(false);
   const hasTypedDev = useRef(false);
@@ -20,22 +24,22 @@ function App() {
   const labelText = " UI/UX • FRONTEND • REACT";
   const devHeaderText = " Development";
   const designHeaderText = " Design";
-  const descText = "   Hi, it's Daksh Sharma here. I transform complex ideas into simple, beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, and Affinity.";
+  const descText = "Hi, it's Daksh Sharma here. I transform complex ideas into simple, beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, and Affinity.";
 
   const skills = {
     strong: [
-      { name: "HTML", icon: "fa-brands fa-html5" },
-      { name: "CSS", icon: "fa-brands fa-css3-alt" },
-      { name: "JS", icon: "fa-brands fa-js" },
-      { name: "ReactJS", icon: "fa-brands fa-react" },
-      { name: "C Lang", icon: "fa-solid fa-code" }
+      { name: "HTML", icon: "fa-brands fa-html5", percent: "80%" },
+      { name: "CSS", icon: "fa-brands fa-css3-alt", percent: "70%" },
+      { name: "JS", icon: "fa-brands fa-js", percent: "65%" },
+      { name: "ReactJS", icon: "fa-brands fa-react", percent: "51%" },
+      { name: "C Lang", icon: "fa-solid fa-code", percent: "75%" }
     ],
     learning: [
-      { name: "Figma", icon: "fa-brands fa-figma" },
-      { name: "Affinity", img: "/aff.png" }, 
-      { name: "After Effects", img: "/ae.png" },
-      { name: "Alight Motion", img: "/am.png" },
-      { name: "UI/UX", img: "/uiux.png" }
+      { name: "Figma", icon: "fa-brands fa-figma", percent: "60%" },
+      { name: "Affinity", img: "/aff.png", percent: "55%" }, 
+      { name: "After Effects", img: "/ae.png", percent: "27%" },
+      { name: "Alight Motion", img: "/am.png", percent: "67%" },
+      { name: "UI/UX", img: "/uiux.png", percent: "60%" }
     ]
   };
 
@@ -46,19 +50,50 @@ function App() {
     { id: 4, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." }
   ];
 
-  const scrollToSection = (e, id, blockPosition = 'center') => {
+  const scrollToSection = (e, id, blockPosition = 'start') => {
     e.preventDefault();
-    setIsMenuOpen(false); 
+    setIsMenuOpen(false);
+    
+    if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('home');
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: blockPosition,
-      });
+      if (id === 'learning') {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      } else {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: blockPosition,
+        });
+      }
+      setActiveSection(id);
     }
   };
 
   useEffect(() => {
+    const track = scrollRef.current;
+    
+    const handleScrollTracking = () => {
+      if (track && window.innerWidth <= 768) {
+        const scrollLeft = track.scrollLeft;
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        const percentage = scrollLeft / maxScroll;
+        const index = Math.min(Math.round(percentage * (certificates.length - 1)), certificates.length - 1);
+        setCurrentCertIndex(index);
+      }
+    };
+
+    if (track) {
+      track.addEventListener('scroll', handleScrollTracking);
+    }
+
     hasTypedLabel.current = false;
     hasTypedDesc.current = false;
     hasTypedDev.current = false;
@@ -124,7 +159,57 @@ function App() {
     const revealElements = document.querySelectorAll('.project-card, .skill-item');
     revealElements.forEach(el => revealObserver.observe(el));
 
-    const handleScroll = () => {
+    const handleManualScroll = () => {
+      const sections = [
+        { id: 'home', element: document.getElementById('home') },
+        { id: 'skills', element: document.getElementById('skills') },
+        { id: 'work', element: document.getElementById('work') },
+        { id: 'learning', element: document.getElementById('learning') },
+        { id: 'contact', element: document.getElementById('contact') }
+      ];
+
+      const scrollPosition = window.scrollY + 150;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      if (windowHeight + window.scrollY >= documentHeight - 50) {
+        setActiveSection('contact');
+        return;
+      }
+
+      if (window.scrollY < 100) {
+        setActiveSection('home');
+        return;
+      }
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.element) {
+          const rect = section.element.getBoundingClientRect();
+          const sectionTop = rect.top + window.scrollY;
+          
+          if (scrollPosition >= sectionTop - 200) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
+      }
+    };
+
+    let scrollTimeout;
+    const throttledScroll = () => {
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
+      scrollTimeout = window.requestAnimationFrame(() => {
+        handleManualScroll();
+      });
+    };
+
+    window.addEventListener('scroll', throttledScroll);
+    handleManualScroll();
+
+    const handleBackToTop = () => {
       setShowBackToTop(window.scrollY > 400);
     };
 
@@ -134,7 +219,7 @@ function App() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleBackToTop);
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
@@ -144,8 +229,10 @@ function App() {
       if (devInterval) clearInterval(devInterval);
       if (designInterval) clearInterval(designInterval);
       revealElements.forEach(el => revealObserver.unobserve(el));
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", throttledScroll);
+      window.removeEventListener("scroll", handleBackToTop);
       document.removeEventListener("mousedown", handleClickOutside);
+      if (track) track.removeEventListener('scroll', handleScrollTracking);
     };
   }, []);
 
@@ -175,12 +262,18 @@ function App() {
       </button>
 
       <nav>
-        <div className="logo">About Me</div>
+        <a 
+          href="#top" 
+          className={`logo nav-logo-link ${activeSection === 'home' ? 'active' : ''}`}
+          onClick={(e) => scrollToSection(e, 'top', 'start')}
+        >
+          About Me
+        </a>
         <div className="nav-links desktop-only">
-          <a href="#work" onClick={(e) => scrollToSection(e, 'work', 'center')}>Projects</a>
-          <a href="#skills" onClick={(e) => scrollToSection(e, 'skills', 'center')}>Skills</a>
-          <a href="#learning" onClick={(e) => scrollToSection(e, 'learning', 'center')}>Certifications</a>
-          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact', 'end')}>Contact</a>
+          <a href="#skills" onClick={(e) => scrollToSection(e, 'skills', 'start')} className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
+          <a href="#work" onClick={(e) => scrollToSection(e, 'work', 'start')} className={activeSection === 'work' ? 'active' : ''}>Projects</a>
+          <a href="#learning" onClick={(e) => scrollToSection(e, 'learning', 'start')} className={activeSection === 'learning' ? 'active' : ''}>Certifications</a>
+          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact', 'start')} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
         </div>
 
         <div className="mobile-menu-container" ref={menuRef}>
@@ -188,10 +281,10 @@ function App() {
             <span></span><span></span><span></span>
           </button>
           <div className={`nav-bubble ${isMenuOpen ? 'show' : ''}`}>
-            <a href="#work" onClick={(e) => scrollToSection(e, 'work', 'center')}><i className="fa-solid fa-code"></i> Projects</a>
-            <a href="#skills" onClick={(e) => scrollToSection(e, 'skills', 'center')}><i className="fa-solid fa-bolt"></i> Skills</a>
-            <a href="#learning" onClick={(e) => scrollToSection(e, 'learning', 'center')}><i className="fa-solid fa-certificate"></i> Certifications</a>
-            <a href="#contact" onClick={(e) => scrollToSection(e, 'contact', 'end')}><i className="fa-solid fa-envelope"></i> Contact</a>
+            <a href="#skills" onClick={(e) => scrollToSection(e, 'skills', 'start')} className={activeSection === 'skills' ? 'active' : ''}><i className="fa-solid fa-bolt"></i> Skills</a>
+            <a href="#work" onClick={(e) => scrollToSection(e, 'work', 'start')} className={activeSection === 'work' ? 'active' : ''}><i className="fa-solid fa-code"></i> Projects</a>
+            <a href="#learning" onClick={(e) => scrollToSection(e, 'learning', 'start')} className={activeSection === 'learning' ? 'active' : ''}><i className="fa-solid fa-certificate"></i> Certifications</a>
+            <a href="#contact" onClick={(e) => scrollToSection(e, 'contact', 'start')} className={activeSection === 'contact' ? 'active' : ''}><i className="fa-solid fa-envelope"></i> Contact</a>
           </div>
         </div>
       </nav>
@@ -204,9 +297,13 @@ function App() {
             <span>Always <span style={{color: 'var(--accent)'}}>Learning</span></span>
             <span><span style={{color: 'var(--accent)'}}>and</span> <span style={{color: 'var(--accent)'}}>Developing.</span></span>
           </h1>
-          <p>{description}</p>
-          <div className={`${isLoaded ? 'reload-swipe' : 'hidden-state'}`}>
-            <a href="#work" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'work', 'center')}>View My Work</a>
+          <p className="hero-desc">{description}</p>
+          <div className={`hero-btns ${isLoaded ? 'reload-swipe' : 'hidden-state'}`}>
+            <a href="#skills" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'skills', 'start')}>View My Work</a>
+            <a href="/resume.pdf" className="btn-resume" download>
+                <span className="resume-icon"><i className="fa-solid fa-download"></i></span>
+                <span className="resume-text">My Resume</span>
+            </a>
           </div>
         </div>
         <div className="photo-container">
@@ -214,6 +311,38 @@ function App() {
             <div className={`profile-box ${isLoaded ? 'reload-pop' : 'hidden-state'}`}>
                <img src="/profile.png" alt="Daksh Sharma" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2 className="section-title">My Skills</h2>
+        <div className="skill-category">
+          <h4 id="dev-h" className="typing-header">{devHeader}<span className="typing"></span></h4>
+          <div className="skills-grid">
+            {skills.strong.map((skill, idx) => (
+              <div className="skill-item" key={idx}>
+                <div className="skill-circle">
+                  {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
+                </div>
+                <span>{skill.name}</span>
+                <span className="skill-percent">{skill.percent}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="skill-category" style={{marginTop: '80px'}}>
+          <h4 id="design-h" className="typing-header">{designHeader}<span className="typing"></span></h4>
+          <div className="skills-grid">
+            {skills.learning.map((skill, idx) => (
+              <div className="skill-item" key={idx}>
+                <div className="skill-circle">
+                  {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
+                </div>
+                <span>{skill.name}</span>
+                <span className="skill-percent">{skill.percent}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -226,63 +355,52 @@ function App() {
             <h3>WLinks</h3>
             <p>A centralized link resource platform designed for ease of access, efficiency and speed.</p>
             <div className="tech-stack"><small>REACT</small><small>FIGMA</small><small>JS</small></div>
-            <a href="https://wlinks.vercel.app/" target="_blank" rel="noreferrer" className="btn btn-outline">Launch Wlinks</a>
+            <div className="project-btns">
+                <a href="https://wlinks.vercel.app/" target="_blank" rel="noreferrer" className="btn btn-outline">Launch Wlinks</a>
+                <a href="https://github.com/dakshsharma99ds/WLinks" target="_blank" rel="noreferrer" className="btn btn-outline">Source Code</a>
+            </div>
           </div>
           <div className="project-image">
             <div className="wlinks-img-box"><img src="/ss.png" alt="Wlinks" /></div>
           </div>
         </div>
-      </div>
 
-      <section id="skills">
-        <h2 className="section-title">My Skills</h2>
-        <div className="skill-category">
-          <h4 id="dev-h" className="typing-header">{devHeader}<span className="typing"></span></h4>
-          <div className="skills-grid">
-            {skills.strong.map((skill, idx) => (
-              <div className="skill-item" key={idx}>
-                <div className="skill-circle">
-                  {skill.img ? (
-                    <img src={skill.img} alt={skill.name} />
-                  ) : (
-                    <i className={skill.icon}></i>
-                  )}
-                </div>
-                <span>{skill.name}</span>
-              </div>
-            ))}
+        <div className="project-card" style={{marginTop: '40px'}}>
+          <div className="project-content">
+            <small style={{color: 'var(--accent)'}}>Personal Branding</small>
+            <h3>Portfolio</h3>
+            <p>A high-performance personal portfolio featuring smooth animations, neon aesthetics, and a responsive design.</p>
+            <div className="tech-stack"><small>REACT</small><small>CSS3</small><small>FIGMA</small></div>
+            <div className="project-btns">
+                <a href="#top" onClick={(e) => scrollToSection(e, 'top', 'start')} className="btn btn-outline">Launch Demo</a>
+                <a href="https://github.com/dakshsharma99ds/Daksh-Sharma-Portfolio" target="_blank" rel="noreferrer" className="btn btn-outline">Source Code</a>
+            </div>
+          </div>
+          <div className="project-image">
+            <div className="wlinks-img-box"><img src="/port.png" alt="Portfolio" /></div>
           </div>
         </div>
-        <div className="skill-category" style={{marginTop: '60px'}}>
-          <h4 id="design-h" className="typing-header">{designHeader}<span className="typing"></span></h4>
-          <div className="skills-grid">
-            {skills.learning.map((skill, idx) => (
-              <div className="skill-item" key={idx}>
-                <div className="skill-circle">
-                  {skill.img ? (
-                    <img src={skill.img} alt={skill.name} />
-                  ) : (
-                    <i className={skill.icon}></i>
-                  )}
-                </div>
-                <span>{skill.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
 
       <section id="learning">
         <div className="learning-header">
           <h2 className="section-title">My Certifications</h2>
         </div>
         <div className={`marquee-container ${selectedCert ? 'paused' : ''}`}>
-          <div className="marquee-track">
-            {[...certificates, ...certificates].map((cert, index) => (
-              <div className="learning-card" key={index} onClick={() => setSelectedCert(cert)}>
-                <div className="cert-img-box">
-                  <img src={`/cert${cert.id}.png`} alt={cert.title} />
+          <div className="marquee-track" ref={scrollRef}>
+            {certificates.map((cert, index) => (
+              <div className="learning-card" key={`orig-${index}`} onClick={() => setSelectedCert(cert)}>
+                <div className="cert-img-box"><img src={`/cert${cert.id}.png`} alt={cert.title} /></div>
+                <div className="learning-info">
+                  <h4>{cert.source}</h4>
+                  <p>{cert.title}</p>
+                  <small>{cert.desc}</small>
                 </div>
+              </div>
+            ))}
+            {certificates.map((cert, index) => (
+              <div className="learning-card marquee-clone" key={`clone-${index}`} onClick={() => setSelectedCert(cert)}>
+                <div className="cert-img-box"><img src={`/cert${cert.id}.png`} alt={cert.title} /></div>
                 <div className="learning-info">
                   <h4>{cert.source}</h4>
                   <p>{cert.title}</p>
@@ -291,6 +409,12 @@ function App() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="dot-indicator phone-only-dots">
+            {certificates.map((_, idx) => (
+                <div key={idx} className={`dot ${currentCertIndex === idx ? 'active' : ''}`}></div>
+            ))}
         </div>
       </section>
 
