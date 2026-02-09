@@ -27,14 +27,14 @@ function App() {
   const descText = "Hi, it's Daksh Sharma here. I transform complex ideas into simple, beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, and Affinity.";
 
   const skills = {
-    strong: [
+    development: [
       { name: "HTML", icon: "fa-brands fa-html5", percent: "80%" },
       { name: "CSS", icon: "fa-brands fa-css3-alt", percent: "70%" },
       { name: "JS", icon: "fa-brands fa-js", percent: "65%" },
       { name: "ReactJS", icon: "fa-brands fa-react", percent: "51%" },
       { name: "C Lang", icon: "fa-solid fa-code", percent: "75%" }
     ],
-    learning: [
+    design: [
       { name: "Figma", icon: "fa-brands fa-figma", percent: "60%" },
       { name: "Affinity", img: "/aff.png", percent: "55%" }, 
       { name: "After Effects", img: "/ae.png", percent: "27%" },
@@ -320,7 +320,7 @@ function App() {
         <div className="skill-category">
           <h4 id="dev-h" className="typing-header">{devHeader}<span className="typing"></span></h4>
           <div className="skills-grid">
-            {skills.strong.map((skill, idx) => (
+            {skills.development.map((skill, idx) => (
               <div className="skill-item" key={idx}>
                 <div className="skill-circle">
                   {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
@@ -334,7 +334,7 @@ function App() {
         <div className="skill-category" style={{marginTop: '80px'}}>
           <h4 id="design-h" className="typing-header">{designHeader}<span className="typing"></span></h4>
           <div className="skills-grid">
-            {skills.learning.map((skill, idx) => (
+            {skills.design.map((skill, idx) => (
               <div className="skill-item" key={idx}>
                 <div className="skill-circle">
                   {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
