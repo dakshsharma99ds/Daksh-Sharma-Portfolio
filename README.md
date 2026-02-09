@@ -1,16 +1,28 @@
-# React + Vite
+# 🟣 Daksh Sharma Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a high-performance, neon-aesthetic personal portfolio designed to showcase my journey in development and design.
 
-Currently, two official plugins are available:
+**Live Demo:** https://daksh-sharma-portfolio-react.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **⚡ Motion Driven:** Featuring smooth GSAP-style reveal animations and entrance swipes.
+* **📱 Ultra Responsive:** Optimized for every device in every aspect.
+* **🏆 Certifications Pop-up Window:** A continuous marquee & slider for certificates with a deep-dive modal view.
+* **🌑 Premium Aesthetic:** A hand-crafted dark theme with neon accents and a custom glowing scrollbar.
 
-## Expanding the ESLint configuration
+## 🚀 Key Sections
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Home:** A bold entrance with a professional "Resume Download" interaction.
+- **Skills:** Categorized technical expertise in Development and Design with progress indicators.
+- **Projects:** Featured projects (like WLinks) showcased with clean, modern cards.
+- **Certifications:** An automated carousel showcasing verified technical achievements.
+
+## 🛠️ Tech Stack
+
+* **Core:** [React.js](https://react.dev/)
+* **Build Tool:** [Vite](https://vitejs.dev/)
+* **Styling:** Custom CSS3.
+* **Deployment:** [Vercel](https://vercel.com/)
