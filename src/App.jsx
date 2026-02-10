@@ -47,7 +47,9 @@ function App() {
     { id: 1, source: "Simplilearn", title: "Fundamentals of Data Structure in C", desc: "Learned core Data Structures in C, including pointers, memory management, Lists, Stacks and other algorithmic logic." },
     { id: 2, source: "CodeTantra", title: "Data File Structure in C", desc: "Learned data and file management in C with core Data Structures in C." },
     { id: 3, source: "Kreativan technologies", title: "Basic Full Stack Development", desc: "Gained a foundational understanding of both frontend and backend development." },
-    { id: 4, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." }
+    { id: 4, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." },
+    { id: 5, source: "Webs Jyoti", title: "Basics of ReactJS", desc: "Explored the fundamentals of building dynamic UIs by leveraging React hooks, props, and virtual DOM concepts." },
+    { id: 6, source: "Design Academy", title: "UI/UX Mastery", desc: "Deep dive into user research, wireframing, and high-fidelity prototyping using Figma." }
   ];
 
   const scrollToSection = (e, id, blockPosition = 'start') => {
@@ -62,7 +64,7 @@ function App() {
 
     const element = document.getElementById(id);
     if (element) {
-      if (id === 'learning') {
+      if (id === 'learning' || id === 'work') {
         element.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
@@ -83,9 +85,8 @@ function App() {
     const handleScrollTracking = () => {
       if (track && window.innerWidth <= 768) {
         const scrollLeft = track.scrollLeft;
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        const percentage = scrollLeft / maxScroll;
-        const index = Math.min(Math.round(percentage * (certificates.length - 1)), certificates.length - 1);
+        const cardWidth = track.querySelector('.learning-card').offsetWidth + 20;
+        const index = Math.round(scrollLeft / cardWidth);
         setCurrentCertIndex(index);
       }
     };
@@ -299,7 +300,7 @@ function App() {
           </h1>
           <p className="hero-desc">{description}</p>
           <div className={`hero-btns ${isLoaded ? 'reload-swipe' : 'hidden-state'}`}>
-            <a href="#skills" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'skills', 'start')}>View My Work</a>
+            <a href="#work" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'work', 'start')}>View My Work</a>
             <a href="/resume.pdf" className="btn-resume" download>
                 <span className="resume-icon"><i className="fa-solid fa-download"></i></span>
                 <span className="resume-text">My Resume</span>
