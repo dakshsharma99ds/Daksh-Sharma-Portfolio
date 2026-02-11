@@ -852,7 +852,7 @@ nav {
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
     }
-    .marquee-track::-webkit-scrollbar { display: none; }
+    .marquee-track::-webkit-scrollbar { display: 100px; }
     
     .learning-card {
         scroll-snap-align: center;
