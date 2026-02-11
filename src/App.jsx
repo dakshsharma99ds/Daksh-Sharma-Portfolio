@@ -47,9 +47,9 @@ function App() {
     { id: 1, source: "Simplilearn", title: "Fundamentals of Data Structure in C", desc: "Learned core Data Structures in C, including pointers, memory management, Lists, Stacks and other algorithmic logic." },
     { id: 2, source: "CodeTantra", title: "Data File Structure in C", desc: "Learned data and file management in C with core Data Structures in C." },
     { id: 3, source: "Kreativan technologies", title: "Basic Full Stack Development", desc: "Gained a foundational understanding of both frontend and backend development." },
-    { id: 4, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." },
-    { id: 5, source: "Webs Jyoti", title: "Basics of ReactJS", desc: "Explored the fundamentals of building dynamic UIs by leveraging React hooks, props, and virtual DOM concepts." },
-    { id: 6, source: "Design Academy", title: "UI/UX Mastery", desc: "Deep dive into user research, wireframing, and high-fidelity prototyping using Figma." }
+    { id: 4, source: "Simplilearn", title: "UI/UX Basics", desc: "Designed intuitive user interfaces using Figma and Adobe XD, focusing on wireframing, prototyping, and user-centric layouts." },
+     { id: 5, source: "Webs Jyoti", title: "Basics of ReactJS", desc: "Explored the fundamentals of building dynamic UIs by leveraging React hooks, props, and virtual DOM concepts." },
+    { id: 6, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." }
   ];
 
   const scrollToSection = (e, id, blockPosition = 'start') => {
