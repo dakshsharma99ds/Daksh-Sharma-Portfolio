@@ -810,7 +810,7 @@ nav {
 }
 
 
-@media (max-width: 900px) {
+@media (max-width: 300px) {
     ::-webkit-scrollbar {
         width: 6px; 
         display: block !important;
