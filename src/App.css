@@ -807,38 +807,51 @@ nav {
     box-shadow: 0 0 30px var(--accent-glow);
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) var(--bg);
-    -webkit-overflow-scrolling: touch;
-}
+/* --- SCROLLBAR SECTION --- */
 
-
-@media (min-width: 769px) {
+/* 1. PC VIEW: Neon Gradient Scrollbar (969px and above) */
+@media (min-width: 969px) {
     ::-webkit-scrollbar {
         width: 12px;
     }
+
     ::-webkit-scrollbar-track {
         background: var(--bg);
     }
+
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(to bottom, #6600a1 0%, var(--accent) 50%, #9f34a7 100%);
+        /* Neon Gradient Style */
+        background: linear-gradient(
+            to bottom,
+            #bc13fe,
+            #8a00d4
+        );
         border-radius: 20px;
+        /* Creating the 'slim pill' look with a border matching the background */
         border: 3px solid var(--bg);
-        box-shadow: 0 0 15px var(--accent-glow);
+        /* Neon Glow */
+        box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #bc13fe;
+        box-shadow: 0 0 15px var(--accent);
     }
 }
 
-@media (max-width: 768px) {
+/* 2. MOBILE VIEW: Slim Subtle Scrollbar (968px and below) */
+@media (max-width: 968px) {
     ::-webkit-scrollbar {
         width: 6px;
-        display: block !important;
     }
+
     ::-webkit-scrollbar-track {
-        background: var(--bg);
+        background: transparent;
     }
+
     ::-webkit-scrollbar-thumb {
-        background: var(--accent); 
+        /* Subtle dark gray look for mobile */
+        background: #c404ea; 
         border-radius: 10px;
     }
 }
