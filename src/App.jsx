@@ -183,6 +183,13 @@ function App() {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
+      // Handle Aurora Fade (Mobile Only)
+      if (window.innerWidth <= 968) {
+          const auroras = document.querySelectorAll('.aurora-left, .aurora-right');
+          const opacity = Math.max(0, 0.15 - (window.scrollY / 500));
+          auroras.forEach(a => a.style.opacity = opacity);
+      }
+
       if (windowHeight + window.scrollY >= documentHeight - 50) {
         setActiveSection('contact');
         return;
