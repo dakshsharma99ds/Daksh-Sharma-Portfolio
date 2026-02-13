@@ -989,7 +989,7 @@ nav {
         width: 50%; /* Expands within the flex container to avoid pushing */
     }
     .project-card p {
-        font-size: 0.75rem; /* Smaller desc for mobile projects */
+        font-size: 0.55rem; /* Smaller desc for mobile projects */
     }
 }
 
