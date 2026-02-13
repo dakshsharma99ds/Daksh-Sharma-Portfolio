@@ -11,17 +11,19 @@ function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
   const [activeSection, setActiveSection] = useState('home');
+  const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   
   const [currentCertIndex, setCurrentCertIndex] = useState(0);
   
   const menuRef = useRef(null);
   const scrollRef = useRef(null);
+  const navLinksRef = useRef(null);
   const hasTypedLabel = useRef(false);
   const hasTypedDesc = useRef(false);
   const hasTypedDev = useRef(false);
   const hasTypedDesign = useRef(false);
   
-  const labelText = " UI/UX • FRONTEND • REACT";
+  const labelText = " UI/UX • FRONTEND • EDITING";
   const devHeaderText = " Development";
   const designHeaderText = " Design";
   const descText = "Hi, it's Daksh Sharma here. I transform complex ideas into simple, beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, and Affinity.";
@@ -53,10 +55,10 @@ function App() {
   ];
 
   const scrollToSection = (e, id, blockPosition = 'start') => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setIsMenuOpen(false);
     
-    if (id === 'top') {
+    if (id === 'top' || id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setActiveSection('home');
       return;
@@ -64,20 +66,29 @@ function App() {
 
     const element = document.getElementById(id);
     if (element) {
-      if (id === 'learning' || id === 'work') {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      } else {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: blockPosition,
-        });
-      }
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: blockPosition,
+      });
       setActiveSection(id);
     }
   };
+
+  useEffect(() => {
+    const updatePill = () => {
+        const activeLink = navLinksRef.current?.querySelector(`a[data-section="${activeSection}"]`);
+        if (activeLink) {
+          setPillStyle({
+            width: activeLink.offsetWidth,
+            left: activeLink.offsetLeft,
+            opacity: 1
+          });
+        }
+    };
+
+    const timer = setTimeout(updatePill, 50);
+    return () => clearTimeout(timer);
+  }, [activeSection]);
 
   useEffect(() => {
     const track = scrollRef.current;
@@ -151,8 +162,7 @@ function App() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('reveal-visible');
-        } else {
-          entry.target.classList.remove('reveal-visible');
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
@@ -263,18 +273,25 @@ function App() {
       </button>
 
       <nav>
-        <a 
-          href="#top" 
-          className={`logo nav-logo-link ${activeSection === 'home' ? 'active' : ''}`}
-          onClick={(e) => scrollToSection(e, 'top', 'start')}
+        <div 
+          className={`mobile-only mobile-nav-brand ${activeSection === 'home' ? 'active-brand' : ''}`}
+          onClick={(e) => scrollToSection(e, 'home', 'start')}
+          style={{cursor: 'pointer'}}
         >
-          About Me
-        </a>
-        <div className="nav-links desktop-only">
-          <a href="#skills" onClick={(e) => scrollToSection(e, 'skills', 'start')} className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
-          <a href="#work" onClick={(e) => scrollToSection(e, 'work', 'start')} className={activeSection === 'work' ? 'active' : ''}>Projects</a>
-          <a href="#learning" onClick={(e) => scrollToSection(e, 'learning', 'start')} className={activeSection === 'learning' ? 'active' : ''}>Certifications</a>
-          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact', 'start')} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
+            About me
+        </div>
+
+        <div className="nav-links desktop-only" ref={navLinksRef}>
+          <div className="nav-active-pill" style={{
+            width: `${pillStyle.width}px`,
+            left: `${pillStyle.left}px`,
+            opacity: pillStyle.opacity
+          }}></div>
+          <a href="#home" data-section="home" onClick={(e) => scrollToSection(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>About Me</a>
+          <a href="#skills" data-section="skills" onClick={(e) => scrollToSection(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
+          <a href="#work" data-section="work" onClick={(e) => scrollToSection(e, 'work')} className={activeSection === 'work' ? 'active' : ''}>Projects</a>
+          <a href="#learning" data-section="learning" onClick={(e) => scrollToSection(e, 'learning')} className={activeSection === 'learning' ? 'active' : ''}>Certifications</a>
+          <a href="#contact" data-section="contact" onClick={(e) => scrollToSection(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
         </div>
 
         <div className="mobile-menu-container" ref={menuRef}>
