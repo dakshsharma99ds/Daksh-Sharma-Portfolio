@@ -249,6 +249,9 @@ function App() {
 
   return (
     <div className="portfolio-container" id="top">
+      <div className="aurora-left"></div>
+      <div className="aurora-right"></div>
+
       {selectedCert && (
         <div className="modal-overlay" onClick={() => setSelectedCert(null)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
