@@ -183,11 +183,16 @@ function App() {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // Handle Aurora Fade (Mobile Only)
+      // Only logic for Aurora Fade on Mobile view (updated)
       if (window.innerWidth <= 968) {
           const auroras = document.querySelectorAll('.aurora-left, .aurora-right');
-          const opacity = Math.max(0, 0.15 - (window.scrollY / 500));
-          auroras.forEach(a => a.style.opacity = opacity);
+          const fadeThreshold = 300; // Point where it starts fading
+          const opacity = Math.max(0, 0.15 - (window.scrollY / fadeThreshold));
+          auroras.forEach(a => {
+              a.style.opacity = opacity;
+              // Completely remove from view if opacity is 0 to save performance
+              a.style.visibility = opacity === 0 ? 'hidden' : 'visible';
+          });
       }
 
       if (windowHeight + window.scrollY >= documentHeight - 50) {
