@@ -983,10 +983,10 @@ nav {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 15px;
+        gap: 10px;
     }
     .btn-resume:hover {
-        width: 50%; /* Expands within the flex container to avoid pushing */
+        width: 40%; /* Expands within the flex container to avoid pushing */
     }
     .project-card p {
         font-size: 0.55rem; /* Smaller desc for mobile projects */
