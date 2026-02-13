@@ -19,6 +19,7 @@
     z-index: -1;
     pointer-events: none;
     animation: auroraWave 8s infinite ease-in-out;
+    transition: opacity 0.5s ease; /* Added for smooth fade on scroll */
 }
 
 .aurora-left {
@@ -368,7 +369,7 @@ nav {
     font-weight: 700;
     color: var(--accent);
     padding-right: 20px;
-    font-size: 0.95rem;
+    font-size: 0.95rem; /* Matched to btn primary */
 }
 
 .btn-resume:hover {
@@ -919,6 +920,7 @@ nav {
     .btn-resume {
         transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
         flex-shrink: 0;
+        position: relative; /* Prevent absolute positioning if any */
     }
 
     .btn-resume:hover {
@@ -927,9 +929,15 @@ nav {
 
     .profile-box { width: 280px; height: 280px; margin: 0 auto; }
     
-    .project-card { grid-template-columns: 1fr; }
-    .project-content { padding: 2.5rem; }
-    .project-image { order: -1; height: 250px; }
+    .project-card { 
+        grid-template-columns: 1fr; 
+        max-width: 500px; /* Reduced layout size */
+        margin: 0 auto;
+    }
+    .project-content { padding: 1.8rem; } /* Reduced padding to match screenshot */
+    .project-content h3 { font-size: 1.8rem; }
+    .project-image { order: -1; height: 200px; padding: 10px; } /* Reduced height/padding */
+    
     .project-btns {
         flex-direction: column;
         width: 100%;
@@ -938,7 +946,7 @@ nav {
     .project-btns .btn {
         width: 100%;
         display: block;
-        padding: 18px 0;
+        padding: 14px 0; /* Adjusted padding */
         text-align: center;
     }
 
