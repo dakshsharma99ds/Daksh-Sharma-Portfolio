@@ -19,7 +19,7 @@
     z-index: -1;
     pointer-events: none;
     animation: auroraWave 8s infinite ease-in-out;
-    transition: opacity 0.5s ease; /* Added for smooth fade on scroll */
+    transition: opacity 0.5s ease;
 }
 
 .aurora-left {
@@ -369,7 +369,7 @@ nav {
     font-weight: 700;
     color: var(--accent);
     padding-right: 20px;
-    font-size: 0.95rem; /* Matched to btn primary */
+    font-size: 0.95rem;
 }
 
 .btn-resume:hover {
@@ -920,7 +920,7 @@ nav {
     .btn-resume {
         transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
         flex-shrink: 0;
-        position: relative; /* Prevent absolute positioning if any */
+        position: relative;
     }
 
     .btn-resume:hover {
@@ -931,12 +931,12 @@ nav {
     
     .project-card { 
         grid-template-columns: 1fr; 
-        max-width: 500px; /* Reduced layout size */
+        max-width: 500px;
         margin: 0 auto;
     }
-    .project-content { padding: 1.8rem; } /* Reduced padding to match screenshot */
+    .project-content { padding: 1.8rem; }
     .project-content h3 { font-size: 1.8rem; }
-    .project-image { order: -1; height: 200px; padding: 10px; } /* Reduced height/padding */
+    .project-image { order: -1; height: 200px; padding: 10px; }
     
     .project-btns {
         flex-direction: column;
@@ -946,7 +946,7 @@ nav {
     .project-btns .btn {
         width: 100%;
         display: block;
-        padding: 14px 0; /* Adjusted padding */
+        padding: 14px 0;
         text-align: center;
     }
 
@@ -978,7 +978,6 @@ nav {
     .hero-desc { text-align: center !important; }
     .nav-bubble a { border-radius: 8px !important; }
 
-    /* Fix for shift on mobile hover & Project text size */
     .hero-btns {
         display: flex;
         justify-content: center;
@@ -986,10 +985,10 @@ nav {
         gap: 15px;
     }
     .btn-resume:hover {
-        width: 50%; /* Expands within the flex container to avoid pushing */
+        width: 50%;
     }
     .project-card p {
-        font-size: 0.85rem; /* Smaller desc for mobile projects */
+        font-size: 0.85rem;
     }
 }
 
