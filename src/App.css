@@ -977,6 +977,20 @@ nav {
     .dot-indicator.phone-only-dots { display: flex; }
     .hero-desc { text-align: center !important; }
     .nav-bubble a { border-radius: 8px !important; }
+
+    /* Fix for shift on mobile hover & Project text size */
+    .hero-btns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    .btn-resume:hover {
+        width: 50%; /* Expands within the flex container to avoid pushing */
+    }
+    .project-card p {
+        font-size: 0.75rem; /* Smaller desc for mobile projects */
+    }
 }
 
 @media (max-width: 480px) {
