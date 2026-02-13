@@ -290,6 +290,7 @@ nav {
     align-items: center;
     gap: 20px;
     position: relative;
+    min-height: 60px; 
 }
 
 .btn-resume {
@@ -306,6 +307,7 @@ nav {
     position: relative;
     box-shadow: 0 0 10px rgba(188, 19, 254, 0.2);
     flex-shrink: 0;
+    z-index: 5;
 }
 
 .resume-icon {
@@ -864,18 +866,20 @@ nav {
     .hero-btns { 
         justify-content: center; 
         gap: 15px;
-        width: 60%;
-        max-width: 400px;
+        width: 100%;
+        max-width: 450px;
         margin: 0 auto;
+        position: relative;
     }
 
     .btn-primary {
-        flex: 1;
+        flex: 0 0 auto;
         padding: 16px 20px;
     }
 
     .btn-resume {
         transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+        flex-shrink: 0;
     }
 
     .btn-resume:hover {
@@ -931,5 +935,6 @@ nav {
 @media (max-width: 480px) {
     .name-gradient { font-size: 3rem; }
     .project-content h3 { font-size: 1.5rem; }
-    .hero-btns { gap: 10px; }
+    .hero-btns { gap: 10px; flex-wrap: nowrap; } 
+    .btn-primary { font-size: 0.85rem; padding: 17.5px 15px; }
 }
