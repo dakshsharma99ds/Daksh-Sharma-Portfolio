@@ -925,6 +925,7 @@ nav {
     .marquee-clone { display: none !important; }
     .dot-indicator.phone-only-dots { display: flex; }
     .hero-desc { text-align: center !important; }
+    .nav-bubble a { border-radius: 8px !important; }
 }
 
 @media (max-width: 480px) {
