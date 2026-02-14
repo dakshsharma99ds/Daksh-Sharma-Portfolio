@@ -10,6 +10,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   
@@ -53,6 +54,14 @@ function App() {
      { id: 5, source: "Webs Jyoti", title: "Basics of ReactJS", desc: "Explored the fundamentals of building dynamic UIs by leveraging React hooks, props, and virtual DOM concepts." },
     { id: 6, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." }
   ];
+
+  const handleCloseModal = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setSelectedCert(null);
+      setIsClosing(false);
+    }, 300);
+  };
 
   const scrollToSection = (e, id, blockPosition = 'start') => {
     if (e) e.preventDefault();
@@ -253,9 +262,9 @@ function App() {
       <div className="aurora-right"></div>
 
       {selectedCert && (
-        <div className="modal-overlay" onClick={() => setSelectedCert(null)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedCert(null)}>&times;</button>
+        <div className={`modal-overlay ${isClosing ? 'modal-fade-out' : ''}`} onClick={handleCloseModal}>
+          <div className={`modal-content ${isClosing ? 'modal-zoom-out' : ''}`} onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={handleCloseModal}>&times;</button>
             <div className="modal-image-container">
                 <img src={`/cert${selectedCert.id}.png`} alt={selectedCert.title} />
             </div>
