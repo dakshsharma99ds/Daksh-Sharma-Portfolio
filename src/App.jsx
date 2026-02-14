@@ -148,6 +148,7 @@ function App() {
                 hasTypedDesign.current = true;
                 designInterval = typeString(designHeaderText, setDesignHeader);
             }
+            skillObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
@@ -157,13 +158,11 @@ function App() {
     if(devH) skillObserver.observe(devH);
     if(designH) skillObserver.observe(designH);
 
-    // FIX: Elements now fade out when scrolling away and back in when returning
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('reveal-visible');
-        } else {
-          entry.target.classList.remove('reveal-visible');
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
@@ -183,16 +182,6 @@ function App() {
       const scrollPosition = window.scrollY + 150;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-
-      if (window.innerWidth <= 968) {
-          const auroras = document.querySelectorAll('.aurora-left, .aurora-right');
-          const fadeThreshold = 300; 
-          const opacity = Math.max(0, 0.15 - (window.scrollY / fadeThreshold));
-          auroras.forEach(a => {
-              a.style.opacity = opacity;
-              a.style.visibility = opacity === 0 ? 'hidden' : 'visible';
-          });
-      }
 
       if (windowHeight + window.scrollY >= documentHeight - 50) {
         setActiveSection('contact');
