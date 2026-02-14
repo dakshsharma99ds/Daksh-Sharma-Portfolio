@@ -1048,3 +1048,21 @@ section {
     position: relative;
     z-index: 10;
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 2. Replace the default blue outline with a custom neon purple one */
+/* This only shows up when using a keyboard or clicking */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* 3. Smooth out the active press state for buttons */
+.btn:active, .nav-links a:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
