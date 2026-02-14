@@ -117,9 +117,7 @@ body {
 
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes zoomOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.9); opacity: 0; } }
 
 nav {
     display: flex;
@@ -453,8 +451,25 @@ nav {
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(188, 19, 254, 0.15);
-    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.5s ease;
+    cursor: pointer;
+    z-index: 1;
 }
+
+.profile-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-box:hover {
+    transform: scale(1.1) translateY(-10px);
+    border-color: #c13cff;
+    box-shadow: 0 20px 60px var(--accent-glow), 0 0 30px var(--accent);
+    z-index: 10;
+}
+
 
 #skills {
     padding: 100px 10% 80px;
@@ -745,10 +760,6 @@ nav {
     padding: 20px;
 }
 
-.modal-fade-out {
-    animation: fadeOut 0.3s ease forwards;
-}
-
 .modal-content {
     position: relative;
     max-width: 600px;
@@ -763,10 +774,6 @@ nav {
     animation: zoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
-}
-
-.modal-zoom-out {
-    animation: zoomOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .modal-image-container {
@@ -806,13 +813,6 @@ nav {
     justify-content: center;
     box-shadow: 0 0 15px var(--accent-glow);
     z-index: 2010;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-}
-
-.modal-close:hover {
-    background-color: #ffffff;
-    color: var(--accent);
-    transform: scale(1.1);
 }
 
 .modal-info { padding-top: 20px; text-align: center; }
@@ -1042,4 +1042,9 @@ nav {
     .hero-btns {gap: 10px; flex-wrap: nowrap; } 
     .btn-primary { font-size: 0.85rem; padding: 17.5px 10px; } 
     .btn-resume:hover { width: 150px; }
+}
+
+section {
+    position: relative;
+    z-index: 10;
 }
