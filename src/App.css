@@ -973,8 +973,8 @@ nav {
 
 @media (max-width: 480px) {
     .name-gradient { font-size: 3rem; }
-    .project-content h3 { font-size: 1.5rem; }
-    .hero-btns { gap: 10px; flex-wrap: nowrap; } 
+    .project-content p { font-size: 0.8rem; }
+    .hero-btns {gap: 10px; flex-wrap: nowrap; } 
     .btn-primary { font-size: 0.85rem; padding: 17.5px 15px; }
     .btn-resume:hover { width: 150px; }
 }
