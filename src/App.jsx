@@ -10,7 +10,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
-  const [isClosing, setIsClosing] = useState(false);
+  const [isClosing, setIsClosing] = useState(false); 
   const [activeSection, setActiveSection] = useState('home');
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   
