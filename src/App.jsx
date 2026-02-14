@@ -458,7 +458,7 @@ function App() {
               <h4>Digital Presence</h4>
               <div style={{marginTop: '10px', display: 'flex', gap: '25px'}}>
                 <a href="https://github.com/dakshsharma99ds" target="_blank" rel="noreferrer"><i className="fa-brands fa-github"></i> GitHub</a>
-                <a href="https://www.linkedin.com/in/dakshsharma2939/" target="_blank" rel="noreferrer"><i className="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="https://www.linkedin.com/in/dakshsharma2939?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app/" target="_blank" rel="noreferrer"><i className="fa-brands fa-linkedin"></i> LinkedIn</a>
               </div>
             </div>
           </div>
