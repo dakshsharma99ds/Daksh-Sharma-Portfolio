@@ -19,7 +19,6 @@
     z-index: -1;
     pointer-events: none;
     animation: auroraWave 8s infinite ease-in-out;
-    transition: opacity 0.5s ease;
 }
 
 .aurora-left {
@@ -920,7 +919,6 @@ nav {
     .btn-resume {
         transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
         flex-shrink: 0;
-        position: relative;
     }
 
     .btn-resume:hover {
@@ -929,15 +927,9 @@ nav {
 
     .profile-box { width: 280px; height: 280px; margin: 0 auto; }
     
-    .project-card { 
-        grid-template-columns: 1fr; 
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    .project-content { padding: 1.8rem; }
-    .project-content h3 { font-size: 1.8rem; }
-    .project-image { order: -1; height: 200px; padding: 10px; }
-    
+    .project-card { grid-template-columns: 1fr; }
+    .project-content { padding: 2.5rem; }
+    .project-image { order: -1; height: 250px; }
     .project-btns {
         flex-direction: column;
         width: 100%;
@@ -946,7 +938,7 @@ nav {
     .project-btns .btn {
         width: 100%;
         display: block;
-        padding: 14px 0;
+        padding: 18px 0;
         text-align: center;
     }
 
@@ -977,19 +969,6 @@ nav {
     .dot-indicator.phone-only-dots { display: flex; }
     .hero-desc { text-align: center !important; }
     .nav-bubble a { border-radius: 8px !important; }
-
-    .hero-btns {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-    }
-    .btn-resume:hover {
-        width: 50%;
-    }
-    .project-card p {
-        font-size: 0.85rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -997,4 +976,5 @@ nav {
     .project-content h3 { font-size: 1.5rem; }
     .hero-btns { gap: 10px; flex-wrap: nowrap; } 
     .btn-primary { font-size: 0.85rem; padding: 17.5px 15px; }
+    .btn-resume:hover { width: 150px; }
 }
