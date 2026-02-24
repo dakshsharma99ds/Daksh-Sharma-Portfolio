@@ -455,7 +455,7 @@ function App() {
             <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
             <h3>Recreating Intro</h3>
             <p>Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.</p>
-            <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small><small>CAPCUTPRO</small></div>
+            <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small></div>
             <div className="project-btns">
                 <button 
                   onClick={() => setSelectedVideo({ url: '/brba.mp4' })} 
