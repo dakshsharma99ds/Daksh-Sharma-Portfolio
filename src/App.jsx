@@ -318,9 +318,9 @@ function App() {
                     onEnded={handleVideoEnd}
                     playsInline
                 />
-                {!isVideoPlaying && !showReplay && (
-                    <div className="video-play-btn"><i className="fa-solid fa-play"></i></div>
-                )}
+                <div className={`video-play-btn hoverable ${isVideoPlaying ? 'fade-out' : ''} ${showReplay ? 'hidden' : ''}`}>
+                    <i className={isVideoPlaying ? "fa-solid fa-pause" : "fa-solid fa-play"}></i>
+                </div>
                 {showReplay && (
                     <div className="video-play-btn replay-btn" onClick={(e) => { e.stopPropagation(); replayVideo(); }}>
                         <i className="fa-solid fa-rotate-right"></i>
