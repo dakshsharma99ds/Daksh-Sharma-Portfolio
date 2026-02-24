@@ -634,6 +634,7 @@ nav {
     gap: 15px;
 }
 
+
 .project-image {
     background: linear-gradient(135deg, #1a0b2e 0%, #0a0510 100%);
     display: flex;
@@ -823,12 +824,13 @@ nav {
     justify-content: center;
     box-shadow: 0 0 15px var(--accent-glow);
     z-index: 2010;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .modal-close:hover {
     background: #ffffff;
-    color: #000000;
+    color: #d300f4;
+    transform: rotate(90deg);
 }
 
 .modal-info { padding-top: 20px; text-align: center; }
@@ -903,11 +905,10 @@ nav {
 }
 
 @media (min-width: 969px) {
-    .project-btns button.btn-outline {
-    width: 23vh;
-    cursor: pointer;
-}
     .mobile-only { display: none !important; }
+    .project-btns .btn-outline {
+        min-width: 160px;
+    }
 }
 
 @media (min-width: 769px) {
@@ -925,7 +926,6 @@ nav {
 }
 
 @media (max-width: 968px) {
-    
     .aurora-left, .aurora-right {
         position: absolute;
         height: 100vh;
@@ -1051,13 +1051,24 @@ nav {
         width: 80vw;
         flex-shrink: 0;
     }
+     .video-play-btn {
+        width: 40px !important; 
+        height: 40px !important;
+        font-size: 0.9rem !important;
+    }
+    .replay-btn {
+        width: 40px !important;
+        height: 40px !important;
+    }
     .marquee-clone { display: none !important; }
     .dot-indicator.phone-only-dots { display: flex; }
     .hero-desc { text-align: center !important; }
     .nav-bubble a { border-radius: 8px !important; }
+    
 }
 
 @media (max-width: 480px) {
+
     .name-gradient { font-size: 3rem; }
     .project-content p { font-size: 0.85rem; }
     .hero-btns {gap: 10px; flex-wrap: nowrap; } 
@@ -1085,10 +1096,9 @@ section {
     transition: transform 0.1s;
 }
 
-
 .video-modal-content {
     max-width: 800px;
-    padding: 20px;
+    padding: 15px;
 }
 
 .modal-video-container {
@@ -1123,7 +1133,25 @@ section {
     box-shadow: 0 0 30px var(--accent-glow);
     z-index: 5;
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+}
+
+.video-play-btn.hoverable {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.video-play-btn.hoverable:hover {
+    background: #ffffff;
+    color: #d300f4;
+    transform: scale(1.1);
+}
+
+.video-play-btn.fade-out {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
 }
 
 .replay-btn {
@@ -1132,7 +1160,7 @@ section {
 }
 
 .replay-btn:hover {
-    transform: scale(1.1);
     background: white;
     color: var(--accent);
+    transform: scale(1.1) rotate(45deg);
 }
