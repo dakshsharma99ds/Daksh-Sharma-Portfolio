@@ -453,7 +453,7 @@ function App() {
         <div className="project-card" style={{marginTop: '40px'}}>
           <div className="project-content">
             <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
-            <h3>Recreating Intro</h3>
+            <h3>Recreated Intro</h3>
             <p>Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.</p>
             <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small></div>
             <div className="project-btns">
