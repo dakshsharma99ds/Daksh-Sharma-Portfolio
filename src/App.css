@@ -903,6 +903,10 @@ nav {
 }
 
 @media (min-width: 969px) {
+    .project-btns button.btn-outline {
+    width: 23vh;
+    cursor: pointer;
+}
     .mobile-only { display: none !important; }
 }
 
@@ -921,6 +925,7 @@ nav {
 }
 
 @media (max-width: 968px) {
+    
     .aurora-left, .aurora-right {
         position: absolute;
         height: 100vh;
@@ -1078,4 +1083,56 @@ section {
 .btn:active, .nav-links a:active {
     transform: scale(0.95);
     transition: transform 0.1s;
+}
+
+
+.video-modal-content {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.modal-video-container {
+    width: 100%;
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-play-btn {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 30px var(--accent-glow);
+    z-index: 5;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.replay-btn {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.replay-btn:hover {
+    transform: scale(1.1);
+    background: white;
+    color: var(--accent);
 }
