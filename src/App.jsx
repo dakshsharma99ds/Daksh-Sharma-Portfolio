@@ -10,15 +10,19 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [isClosing, setIsClosing] = useState(false); 
   const [activeSection, setActiveSection] = useState('home');
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   
   const [currentCertIndex, setCurrentCertIndex] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showReplay, setShowReplay] = useState(false);
   
   const menuRef = useRef(null);
   const scrollRef = useRef(null);
   const navLinksRef = useRef(null);
+  const videoRef = useRef(null);
   const hasTypedLabel = useRef(false);
   const hasTypedDesc = useRef(false);
   const hasTypedDev = useRef(false);
@@ -59,8 +63,37 @@ function App() {
     setIsClosing(true);
     setTimeout(() => {
       setSelectedCert(null);
+      setSelectedVideo(null);
       setIsClosing(false);
+      setIsVideoPlaying(false);
+      setShowReplay(false);
     }, 300);
+  };
+
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsVideoPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsVideoPlaying(false);
+      }
+    }
+  };
+
+  const handleVideoEnd = () => {
+    setIsVideoPlaying(false);
+    setShowReplay(true);
+  };
+
+  const replayVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+      setIsVideoPlaying(true);
+      setShowReplay(false);
+    }
   };
 
   const scrollToSection = (e, id, blockPosition = 'start') => {
@@ -260,7 +293,6 @@ function App() {
     <div className="portfolio-container" id="top">
       <div className="aurora-left"></div>
       <div className="aurora-right"></div>
-
       {selectedCert && (
         <div className={`modal-overlay ${isClosing ? 'modal-fade-out' : ''}`} onClick={handleCloseModal}>
           <div className={`modal-content ${isClosing ? 'modal-zoom-out' : ''}`} onClick={e => e.stopPropagation()}>
@@ -271,6 +303,29 @@ function App() {
             <div className="modal-info">
                 <h3>{selectedCert.title}</h3>
                 <p>{selectedCert.source}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {selectedVideo && (
+        <div className={`modal-overlay ${isClosing ? 'modal-fade-out' : ''}`} onClick={handleCloseModal}>
+          <div className={`modal-content video-modal-content ${isClosing ? 'modal-zoom-out' : ''}`} onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={handleCloseModal}>&times;</button>
+            <div className="modal-video-container" onClick={toggleVideo}>
+                <video 
+                    ref={videoRef}
+                    src={selectedVideo.url} 
+                    onEnded={handleVideoEnd}
+                    playsInline
+                />
+                {!isVideoPlaying && !showReplay && (
+                    <div className="video-play-btn"><i className="fa-solid fa-play"></i></div>
+                )}
+                {showReplay && (
+                    <div className="video-play-btn replay-btn" onClick={(e) => { e.stopPropagation(); replayVideo(); }}>
+                        <i className="fa-solid fa-rotate-right"></i>
+                    </div>
+                )}
             </div>
           </div>
         </div>
@@ -397,7 +452,28 @@ function App() {
 
         <div className="project-card" style={{marginTop: '40px'}}>
           <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Personal Branding</small>
+            <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
+            <h3>Recreating Intro</h3>
+            <p>Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.</p>
+            <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small><small>CAPCUTPRO</small></div>
+            <div className="project-btns">
+                <button 
+                  onClick={() => setSelectedVideo({ url: '/brba.mp4' })} 
+                  className="btn btn-outline"
+                >
+                  View Intro
+                </button>
+                <a href="https://drive.google.com/file/d/1nv2oyJPQy3YWdTlABHCeDrdCcV4nTK0-/view?usp=drive_link" target="_blank" rel="noreferrer" className="btn btn-outline">View Assets</a>
+            </div>
+          </div>
+          <div className="project-image">
+            <div className="wlinks-img-box"><img src="/brba.png" alt="brba" /></div>
+          </div>
+        </div>
+
+        <div className="project-card" style={{marginTop: '40px'}}>
+          <div className="project-content">
+            <small style={{color: 'var(--accent)'}}>Personal Building</small>
             <h3>Portfolio</h3>
             <p>A high-performance personal portfolio featuring smooth animations, neon aesthetics, and a responsive design.</p>
             <div className="tech-stack"><small>REACT</small><small>CSS3</small><small>FIGMA</small></div>
