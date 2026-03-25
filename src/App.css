@@ -23,12 +23,10 @@
 
 .aurora-left {
     left: -200px;
-    size: 100vh;
 }
 
 .aurora-right {
     right: -200px;
-    size: 100vh;
     animation-delay: -4s;
 }
 
@@ -517,12 +515,6 @@ nav {
     animation: waveEffect 3s ease-in-out infinite;
 }
 
-.skill-item:nth-child(1) { animation-delay: 0.2s; }
-.skill-item:nth-child(2) { animation-delay: 0.4s; }
-.skill-item:nth-child(3) { animation-delay: 0.6s; }
-.skill-item:nth-child(4) { animation-delay: 0.8s; }
-.skill-item:nth-child(5) { animation-delay: 0.10s; }
-
 .skill-circle {
     width: 70px;
     height: 70px;
@@ -991,23 +983,24 @@ nav {
     .project-card { 
         grid-template-columns: 1fr; 
         width: 100%; 
-        margin: 20px auto !important;
-        border-radius: 30px;
+        margin: 15px auto !important;
+        border-radius: 20px;
     }
     .project-content { 
-        padding: 2rem; 
+        padding: 1.5rem;
         text-align: left;
     }
-    .project-content h3 { font-size: 1.8rem; }
-    .project-content p { font-size: 0.9rem; line-height: 1.4; color: var(--text-dim); }
+    .project-content h3 { font-size: 1.5rem; }
+    .project-content p { font-size: 0.85rem; line-height: 1.4; color: var(--text-dim); }
     
     .project-image { 
         order: -1; 
-        height: 220px; 
-        padding: 15px;
+        height: 180px;
+        padding: 10px;
     }
+
     .wlinks-img-box {
-        border-radius: 20px;
+        border-radius: 12px;
         background: #11081d;
         display: flex;
         align-items: center;
@@ -1018,14 +1011,14 @@ nav {
         flex-direction: column;
         width: 100%;
         gap: 10px;
-        margin-top: 20px;
+        margin-top: 15px;
     }
     .project-btns .btn {
         width: 100%;
         display: block;
-        padding: 16px 0;
-        border-radius: 12px;
-        font-size: 0.9rem;
+        padding: 14px 0;
+        border-radius: 10px;
+        font-size: 0.85rem;
     }
 
     .contact-grid { grid-template-columns: 1fr; }
@@ -1068,9 +1061,8 @@ nav {
 }
 
 @media (max-width: 480px) {
-
     .name-gradient { font-size: 3rem; }
-    .project-content p { font-size: 0.85rem; }
+    .project-content p { font-size: 0.8rem; }
     .hero-btns {gap: 10px; flex-wrap: nowrap; } 
     .btn-primary { font-size: 0.85rem; padding: 17.5px 10px; } 
     .btn-resume:hover { width: 150px; }
