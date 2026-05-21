@@ -486,6 +486,29 @@ function App() {
             <div className="wlinks-img-box"><img src="/brba.png" alt="brba" /></div>
           </div>
         </div>
+        
+
+        <div className="project-card" style={{marginTop: '40px'}}>
+          <div className="project-content">
+            <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
+            <h3>Recreated Game Menu Animation</h3>
+            <p>Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.</p>
+            <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small></div>
+            <div className="project-btns">
+                <button 
+                  onClick={() => setSelectedVideo({ url: '/Oustlast.mp4' })} 
+                  className="btn btn-outline"
+                >
+                  View Intro
+                </button>
+                <a href="https://drive.google.com/file/d/1SmYHw8QYuaHHjBGSChldXmdIUe-2B9nc/view?usp=drive_link" target="_blank" rel="noreferrer" className="btn btn-outline">View Assets</a>
+            </div>
+          </div>
+          <div className="project-image">
+            <div className="wlinks-img-box"><img src="/out.png" alt="outlast" /></div>
+          </div>
+        </div>
+
 
         <div className="project-card" style={{marginTop: '40px'}}>
           <div className="project-content">
