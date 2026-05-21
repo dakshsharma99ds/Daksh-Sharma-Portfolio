@@ -486,17 +486,16 @@ function App() {
             <div className="wlinks-img-box"><img src="/brba.png" alt="brba" /></div>
           </div>
         </div>
-        
 
         <div className="project-card" style={{marginTop: '40px'}}>
           <div className="project-content">
             <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
-            <h3>Recreated Game Menu Animation</h3>
-            <p>Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.</p>
+            <h3>Recreated Game Menu</h3>
+            <p>Recreation of Outlast game menu animation using Alight Motion and Affinity to demonstrate Masking, Lighting and Object overlay.</p>
             <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small></div>
             <div className="project-btns">
                 <button 
-                  onClick={() => setSelectedVideo({ url: '/Oustlast.mp4' })} 
+                  onClick={() => setSelectedVideo({ url: '/Outlast-intro.mp4' })} 
                   className="btn btn-outline"
                 >
                   View Intro
@@ -508,7 +507,6 @@ function App() {
             <div className="wlinks-img-box"><img src="/out.png" alt="outlast" /></div>
           </div>
         </div>
-
 
         <div className="project-card" style={{marginTop: '40px'}}>
           <div className="project-content">
