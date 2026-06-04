@@ -487,6 +487,29 @@ function App() {
           </div>
         </div>
 
+
+        <div className="project-card" style={{marginTop: '40px'}}>
+          <div className="project-content">
+            <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
+            <h3>Recreated Intro</h3>
+            <p>Recreation of Micheal Movie title from scratch with custom name to demonstrate Path Trimming and Texture overlay in After Effects</p>
+            <div className="tech-stack"><small>AFFTER EFFECTS</small></div>
+            <div className="project-btns">
+                <button 
+                  onClick={() => setSelectedVideo({ url: '/Daksh-intro.mp4' })} 
+                  className="btn btn-outline"
+                >
+                  View Intro
+                </button>
+                <a href="https://drive.google.com/file/d/1SmYHw8QYuaHHjBGSChldXmdIUe-2B9nc/view?usp=drive_link" target="_blank" rel="noreferrer" className="btn btn-outline">View Assets</a>
+            </div>
+          </div>
+          <div className="project-image">
+            <div className="wlinks-img-box"><img src="/out.png" alt="outlast" /></div>
+          </div>
+        </div>
+
+
         <div className="project-card" style={{marginTop: '40px'}}>
           <div className="project-content">
             <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
