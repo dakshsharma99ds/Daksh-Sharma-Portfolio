@@ -513,6 +513,7 @@ nav {
     opacity: 1;
     transform: scale(1);
     animation: waveEffect 3s ease-in-out infinite;
+    animation-delay: calc(var(--delay) * 0.2s);
 }
 
 .skill-circle {
