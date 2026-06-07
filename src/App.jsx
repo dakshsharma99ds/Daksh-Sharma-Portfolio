@@ -406,7 +406,7 @@ function App() {
           <h4 id="dev-h" className="typing-header">{devHeader}<span className="typing"></span></h4>
           <div className="skills-grid">
             {skills.development.map((skill, idx) => (
-              <div className="skill-item" key={idx}>
+              <div className="skill-item" key={idx} style={{ '--delay': idx }}>
                 <div className="skill-circle">
                   {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
                 </div>
@@ -420,7 +420,7 @@ function App() {
           <h4 id="design-h" className="typing-header">{designHeader}<span className="typing"></span></h4>
           <div className="skills-grid">
             {skills.design.map((skill, idx) => (
-              <div className="skill-item" key={idx}>
+              <div className="skill-item" key={idx} style={{ '--delay': idx }}>
                 <div className="skill-circle">
                   {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
                 </div>
