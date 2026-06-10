@@ -317,7 +317,9 @@ function App() {
                     src={selectedVideo.url} 
                     onEnded={handleVideoEnd}
                     playsInline
-                />
+                    preload="metadata"
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                 />
                 <div className={`video-play-btn hoverable ${isVideoPlaying ? 'fade-out' : ''} ${showReplay ? 'hidden' : ''}`}>
                     <i className={isVideoPlaying ? "fa-solid fa-pause" : "fa-solid fa-play"}></i>
                 </div>
