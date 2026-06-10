@@ -493,7 +493,7 @@ function App() {
             <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
             <h3>Recreated Intro</h3>
             <p>Recreation of Michael movie title animation from scratch to demonstrate Path Trimming and Texture overlay in After Effects.</p>
-            <div className="tech-stack"><small>AFFTER EFFECTS</small></div>
+            <div className="tech-stack"><small>AFTER EFFECTS</small></div>
             <div className="project-btns">
                 <button 
                   onClick={() => setSelectedVideo({ url: '/Daksh-intro.mp4' })} 
