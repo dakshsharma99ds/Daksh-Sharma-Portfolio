@@ -595,7 +595,7 @@ function App() {
           <div className="contact-details">
             <div className="contact-item">
               <h4>Email</h4>
-              <a href="mailto:dakshsharma999ds@gmail.com">dakshsharma999ds@gmail.com</a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dakshsharma999ds@gmail.com">dakshsharma999ds@gmail.com</a>
             </div>
             <div className="contact-item">
               <h4>WhatsApp / Call</h4>
