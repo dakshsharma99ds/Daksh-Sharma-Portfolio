@@ -14,24 +14,32 @@ function App() {
   const [isClosing, setIsClosing] = useState(false); 
   const [activeSection, setActiveSection] = useState('home');
   const [pillStyle, setPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
-  
   const [currentCertIndex, setCurrentCertIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showReplay, setShowReplay] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [filterPillStyle, setFilterPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
+  const [isFiltering, setIsFiltering] = useState(false);
+  const [selectedGraphic, setSelectedGraphic] = useState(null);
+  const [graphicIndex, setGraphicIndex] = useState(0);
+  const [isGraphicFullscreen, setIsGraphicFullscreen] = useState(false);
   
   const menuRef = useRef(null);
   const scrollRef = useRef(null);
   const navLinksRef = useRef(null);
+  const filterLinksRef = useRef(null);
   const videoRef = useRef(null);
+  const graphicImageRef = useRef(null);
+  const graphicTouchStartX = useRef(0);
   const hasTypedLabel = useRef(false);
   const hasTypedDesc = useRef(false);
   const hasTypedDev = useRef(false);
   const hasTypedDesign = useRef(false);
-  
+
   const labelText = " UI/UX • FRONTEND • EDITING";
-  const devHeaderText = " Development";
-  const designHeaderText = " Design";
-  const descText = "Hi, it's Daksh Sharma here. I transform complex ideas into simple, beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, and Affinity.";
+  const devHeaderText = " Web Development";
+  const designHeaderText = " Designing and Editing";
+  const descText = "I transform ideas into simple and beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, Alight motion, Photoshop and After effects.";
 
   const skills = {
     development: [
@@ -39,14 +47,18 @@ function App() {
       { name: "CSS", icon: "fa-brands fa-css3-alt", percent: "70%" },
       { name: "JS", icon: "fa-brands fa-js", percent: "65%" },
       { name: "ReactJS", icon: "fa-brands fa-react", percent: "51%" },
-      { name: "C Lang", icon: "fa-solid fa-code", percent: "75%" }
+      { name: "Tailwind", isTailwindSvg: true, percent: "35%" }
     ],
     design: [
       { name: "Figma", icon: "fa-brands fa-figma", percent: "60%" },
-      { name: "Affinity", img: "/aff.png", percent: "55%" }, 
-      { name: "After Effects", img: "/ae.png", percent: "27%" },
-      { name: "Alight Motion", img: "/am.png", percent: "67%" },
-      { name: "UI/UX", img: "/uiux.png", percent: "60%" }
+      { name: "Photoshop", isPs: true, percent: "55%" }, 
+      { 
+        name: "Illustrator", 
+        isAi: true, 
+        percent: "52%" 
+      },
+      { name: "After Effects", isAe: true, percent: "40%" },
+      { name: "Alight Motion", img: "/am.png", percent: "70%" }
     ]
   };
 
@@ -55,19 +67,63 @@ function App() {
     { id: 2, source: "CodeTantra", title: "Data File Structure in C", desc: "Learned data and file management in C with core Data Structures in C." },
     { id: 3, source: "Kreativan technologies", title: "Basic Full Stack Development", desc: "Gained a foundational understanding of both frontend and backend development." },
     { id: 4, source: "Simplilearn", title: "UI/UX Basics", desc: "Designed intuitive user interfaces using Figma and Adobe XD, focusing on wireframing, prototyping, and user-centric layouts." },
-     { id: 5, source: "Webs Jyoti", title: "Basics of ReactJS", desc: "Explored the fundamentals of building dynamic UIs by leveraging React hooks, props, and virtual DOM concepts." },
+    { id: 5, source: "Webs Jyoti", title: "Basics of ReactJS", desc: "Explored the fundamentals of building dynamic UIs by leveraging React hooks, props, and virtual DOM concepts." },
     { id: 6, source: "NS3Edu", title: "Web Development Frontend", desc: "Learned to build responsive and interactive user interfaces using HTML, CSS, JS and React." }
   ];
 
+  const graphicDesigns = [
+    { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link', tooltipText: 'View AI File' },
+    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1FmVUpAiL42iPRjXwPqF0k8G4hHEoWj1g/view?usp=drive_link', tooltipText: 'View PSD File' },
+    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1RJFMbiRjz0Fh8wvKYbSjzTcKh8rShhrp/view?usp=drive_link', tooltipText: 'View FIG and PSD File' },
+    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/19Q8eR9eiuFzcneMQ_RB-biLytsrcdCeP/view?usp=sharing', tooltipText: 'View PSD File' },
+  ];
+
+  const graphicHighlightWords = ['Adobe Illustrator', 'Figma', 'Adobe Photoshop'];
+  const renderHighlightedDesc = (text) => {
+    const pattern = new RegExp(`(${graphicHighlightWords.join('|')})`, 'g');
+    return text.split(pattern).map((part, i) =>
+      graphicHighlightWords.includes(part)
+        ? <span key={i} className="graphic-highlight">{part}</span>
+        : part
+    );
+  };
+
   const handleCloseModal = () => {
+    if (document.fullscreenElement) document.exitFullscreen();
     setIsClosing(true);
     setTimeout(() => {
       setSelectedCert(null);
       setSelectedVideo(null);
+      setSelectedGraphic(null);
       setIsClosing(false);
       setIsVideoPlaying(false);
       setShowReplay(false);
     }, 300);
+  };
+
+  const toggleGraphicFullscreen = () => {
+    const el = graphicImageRef.current;
+    if (!el) return;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen?.();
+    } else {
+      document.exitFullscreen?.();
+    }
+  };
+
+  const handleGraphicTouchStart = (e) => {
+    graphicTouchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleGraphicTouchEnd = (e) => {
+    const deltaX = e.changedTouches[0].clientX - graphicTouchStartX.current;
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX < 0) {
+        setGraphicIndex(i => (i + 1) % graphicDesigns.length);
+      } else {
+        setGraphicIndex(i => (i - 1 + graphicDesigns.length) % graphicDesigns.length);
+      }
+    }
   };
 
   const toggleVideo = () => {
@@ -75,6 +131,7 @@ function App() {
       if (videoRef.current.paused) {
         videoRef.current.play();
         setIsVideoPlaying(true);
+        setShowReplay(false);
       } else {
         videoRef.current.pause();
         setIsVideoPlaying(false);
@@ -131,6 +188,27 @@ function App() {
     const timer = setTimeout(updatePill, 50);
     return () => clearTimeout(timer);
   }, [activeSection]);
+
+  useEffect(() => {
+    const updateFilterPill = () => {
+      const activeLink = filterLinksRef.current?.querySelector(`button[data-filter="${activeFilter}"]`);
+      if (activeLink) {
+        setFilterPillStyle({
+          width: activeLink.offsetWidth,
+          left: activeLink.offsetLeft,
+          opacity: 1
+        });
+      }
+    };
+    const timer = setTimeout(updateFilterPill, 50);
+    return () => clearTimeout(timer);
+  }, [activeFilter]);
+
+  useEffect(() => {
+    const handleFsChange = () => setIsGraphicFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
 
   useEffect(() => {
     const track = scrollRef.current;
@@ -221,7 +299,6 @@ function App() {
         { id: 'contact', element: document.getElementById('contact') }
       ];
 
-      const scrollPosition = window.scrollY + 150;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
@@ -235,15 +312,31 @@ function App() {
         return;
       }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.element) {
-          const rect = section.element.getBoundingClientRect();
-          const sectionTop = rect.top + window.scrollY;
-          
-          if (scrollPosition >= sectionTop - 200) {
-            setActiveSection(section.id);
-            break;
+      if (window.innerWidth <= 768) {
+        const triggerPoint = windowHeight / 2;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = sections[i];
+          if (section.element) {
+            const rect = section.element.getBoundingClientRect();
+            if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+              setActiveSection(section.id);
+              break;
+            }
+          }
+        }
+      } 
+      else {
+        const scrollPosition = window.scrollY + 150;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = sections[i];
+          if (section.element) {
+            const rect = section.element.getBoundingClientRect();
+            const sectionTop = rect.top + window.scrollY;
+            
+            if (scrollPosition >= sectionTop - 200) {
+              setActiveSection(section.id);
+              break;
+            }
           }
         }
       }
@@ -289,6 +382,113 @@ function App() {
     };
   }, []);
 
+  const projects = [
+    {
+      id: 'graphic',
+      category: 'design',
+      label: 'Graphic Designing',
+      title: 'Poster Designs',
+      desc: 'A collection of graphic design and illustration posters created using Figma, Photoshop, and Illustrator.',
+      stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
+      btns: [
+        { label: 'View Designs', isGraphic: true },
+        { href: 'https://drive.google.com/file/d/1Nq-9nsgXUV0fuGxJGwbEd6OA9YtETuTi/view?usp=drive_link', label: 'View PSD/AI File', external: true }
+      ],
+      img: '/gra.png',
+      imgAlt: 'Graphics'
+    },
+    {
+      id: 'ulcmp4',
+      category: 'webapp',
+      label: 'Web Application',
+      title: 'ULCMP4',
+      desc: 'Universal Link Convertor , A clean, ad-free experience to convert social media links to high quality MP4/MP3.',
+      stack: ['REACT', 'TAILWIND', 'FFMPEG'],
+      btns: [
+        { href: 'https://ulcmp4.onrender.com/', label: 'Launch ULCMP4', external: true },
+        { href: 'https://github.com/dakshsharma99ds/ULCMP4', label: 'Source Code', external: true }
+      ],
+      img: '/ulc.png',
+      imgAlt: 'ulc',
+      
+    },
+    {
+      id: 'wlinks',
+      category: 'webapp',
+      label: 'Web Application',
+      title: 'WLinks',
+      desc: 'A centralized link resource platform designed for ease of access, efficiency and speed.',
+      stack: ['REACT', 'FIGMA', 'JS'],
+      btns: [
+        { href: 'https://wlinks.vercel.app/', label: 'Launch Wlinks', external: true },
+        { href: 'https://github.com/dakshsharma99ds/WLinks', label: 'Source Code', external: true }
+      ],
+      img: '/ss.png',
+      imgAlt: 'Wlinks',
+    },
+    {
+      id: 'brba',
+      category: 'editing',
+      label: 'Motion/Editing',
+      title: 'Recreated Intro',
+      desc: 'Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.',
+      stack: ['ALIGHT MOTION', 'AFFINITY'],
+      btns: [
+        { label: 'View Intro', isVideo: true, videoUrl: '/brba.mp4' },
+        { href: 'https://drive.google.com/file/d/1nv2oyJPQy3YWdTlABHCeDrdCcV4nTK0-/view?usp=drive_link', label: 'View Assets', external: true }
+      ],
+      img: '/brba.png',
+      imgAlt: 'brba',
+    },
+    {
+      id: 'daksh',
+      category: 'editing',
+      label: 'Motion/Editing',
+      title: 'Recreated Intro',
+      desc: 'Recreation of Michael movie title animation from scratch to demonstrate Path Trimming and Texture overlay in After Effects.',
+      stack: ['AFTER EFFECTS'],
+      btns: [
+        { label: 'View Intro', isVideo: true, videoUrl: '/Daksh-intro.mp4' },
+        { href: 'https://drive.google.com/file/d/1oDM7oegCmEvSjPpUJ74BaTHLbAz7HK5B/view?usp=sharing', label: 'View AEP File', external: true }
+      ],
+      img: '/Daksh.png',
+      imgAlt: 'Daksh',
+
+    },
+    {
+      id: 'outlast',
+      category: 'editing',
+      label: 'Motion/Editing',
+      title: 'Recreated Game Menu',
+      desc: 'Recreation of Outlast game menu animation using Alight Motion and Affinity to demonstrate Masking, Lighting and Object overlay.',
+      stack: ['ALIGHT MOTION', 'AFFINITY'],
+      btns: [
+        { label: 'View Intro', isVideo: true, videoUrl: '/Outlast-intro.mp4' },
+        { href: 'https://drive.google.com/file/d/1SmYHw8QYuaHHjBGSChldXmdIUe-2B9nc/view?usp=drive_link', label: 'View Assets', external: true }
+      ],
+      img: '/out.png',
+      imgAlt: 'outlast',
+
+    },
+    {
+      id: 'portfolio',
+      category: 'webapp',
+      label: 'Personal Building',
+      title: 'Portfolio',
+      desc: 'A high-performance personal portfolio featuring smooth animations, neon aesthetics, and a responsive design.',
+      stack: ['REACT', 'CSS3', 'FIGMA'],
+      btns: [
+        { href: '#top', label: 'Launch Demo', isScrollTop: true },
+        { href: 'https://github.com/dakshsharma99ds/Daksh-Sharma-Portfolio', label: 'Source Code', external: true }
+      ],
+      img: '/port.png',
+      imgAlt: 'Portfolio',
+
+    }
+  ];
+
+  const firstVisibleIndex = projects.findIndex(p => activeFilter === 'all' || p.category === activeFilter);
+
   return (
     <div className="portfolio-container" id="top">
       <div className="aurora-left"></div>
@@ -328,6 +528,64 @@ function App() {
                         <i className="fa-solid fa-rotate-right"></i>
                     </div>
                 )}
+            </div>
+          </div>
+        </div>
+      )}
+      {selectedGraphic && (
+        <div className={`modal-overlay ${isClosing ? 'modal-fade-out' : ''}`} onClick={handleCloseModal}>
+          <div className={`modal-content graphic-modal-content ${isClosing ? 'modal-zoom-out' : ''}`} onClick={e => e.stopPropagation()}>
+            <div className="graphic-toolbar">
+              <button type="button" className="graphic-icon-btn graphic-close-btn hoverable" onClick={handleCloseModal}>
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+              <div className="graphic-icon-btn hoverable">
+                <i className="fa-solid fa-circle-info"></i>
+                <span className="graphic-tooltip graphic-tooltip-info">
+                  <strong>{graphicDesigns[graphicIndex].title}</strong>
+                  <p>{renderHighlightedDesc(graphicDesigns[graphicIndex].desc)}</p>
+                </span>
+              </div>
+              <a href={graphicDesigns[graphicIndex].psd} target="_blank" rel="noreferrer" className="graphic-icon-btn hoverable">
+                <i className="fa-solid fa-download"></i>
+                <span className="graphic-tooltip graphic-tooltip-label">{graphicDesigns[graphicIndex].tooltipText}</span>
+              </a>
+              <button type="button" className="graphic-icon-btn hoverable" onClick={toggleGraphicFullscreen}>
+                <i className={`fa-solid ${isGraphicFullscreen ? 'fa-compress' : 'fa-expand'}`}></i>
+                <span className="graphic-tooltip graphic-tooltip-label">{isGraphicFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}</span>
+              </button>
+            </div>
+            <div className="graphic-stage" ref={graphicImageRef}>
+              {isGraphicFullscreen && (
+                <button
+                  type="button"
+                  className="graphic-icon-btn graphic-close-btn hoverable graphic-fs-close"
+                  onClick={(e) => { e.stopPropagation(); toggleGraphicFullscreen(); }}
+                >
+                  <i className="fa-solid fa-xmark"></i>
+                </button>
+              )}
+              <button
+                type="button"
+                className="graphic-icon-btn hoverable graphic-nav-btn graphic-nav-prev"
+                onClick={(e) => { e.stopPropagation(); setGraphicIndex(i => (i - 1 + graphicDesigns.length) % graphicDesigns.length); }}
+              >
+                <i className="fa-solid fa-chevron-left"></i>
+              </button>
+              <button
+                type="button"
+                className="graphic-icon-btn hoverable graphic-nav-btn graphic-nav-next"
+                onClick={(e) => { e.stopPropagation(); setGraphicIndex(i => (i + 1) % graphicDesigns.length); }}
+              >
+                <i className="fa-solid fa-chevron-right"></i>
+              </button>
+              <div
+                className="modal-image-container graphic-image-container"
+                onTouchStart={handleGraphicTouchStart}
+                onTouchEnd={handleGraphicTouchEnd}
+              >
+                <img src={graphicDesigns[graphicIndex].img} alt={graphicDesigns[graphicIndex].title} />
+              </div>
             </div>
           </div>
         </div>
@@ -410,7 +668,15 @@ function App() {
             {skills.development.map((skill, idx) => (
               <div className="skill-item" key={idx} style={{ '--delay': idx }}>
                 <div className="skill-circle">
-                  {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
+                  {skill.isTailwindSvg ? (
+                    <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor" style={{ color: 'var(--accent)', display: 'block', WebkitUserSelect: 'none', userSelect: 'none' }}>
+                      <path d="M12 6.036c-2.4 0-4.38 1.284-5.4 3.852 1.2-1.284 2.58-1.716 4.14-1.284.888.246 1.523.894 2.224 1.61.115.116.23.235.348.35C14.46 11.855 15.86 13.5 19.2 13.5c2.4 0 4.38-1.284 5.4-3.852-1.2 1.284-2.58 1.716-4.14 1.284-.888-.246-1.523-.894-2.224-1.61-.115-.116-.23-.235-.348-.35C16.74 7.68 15.34 6.036 12 6.036zM6 13.5c-2.4 0-4.38 1.284-5.4 3.852 1.2-1.284 2.58-1.716 4.14-1.284.889.246 1.523.894 2.225 1.61.115.116.23.235.347.35 1.151 1.181 2.551 2.822 5.888 2.822 2.4 0 4.38-1.284 5.4-3.852-1.2 1.284-2.58 1.716-4.14 1.284-.889-.246-1.523-.894-2.225-1.61-.114-.116-.23-.235-.347-.35C10.74 15.144 9.34 13.5 6 13.5z"/>
+                    </svg>
+                  ) : skill.img ? (
+                    <img src={skill.img} alt={skill.name} style={{ WebkitUserSelect: 'none', userSelect: 'none' }} />
+                  ) : (
+                    <i className={skill.icon}></i>
+                  )}
                 </div>
                 <span>{skill.name}</span>
                 <span className="skill-percent">{skill.percent}</span>
@@ -424,7 +690,23 @@ function App() {
             {skills.design.map((skill, idx) => (
               <div className="skill-item" key={idx} style={{ '--delay': idx }}>
                 <div className="skill-circle">
-                  {skill.img ? <img src={skill.img} alt={skill.name} /> : <i className={skill.icon}></i>}
+                  {skill.isPs ? (
+                    <span style={{ fontSize: '1.6rem', fontWeight: '800', fontFamily: 'sans-serif', lineHeight: '1', color: 'var(--accent)', WebkitUserSelect: 'none', userSelect: 'none' }}>
+                      Ps
+                    </span>
+                  ) : skill.isAe ? (
+                    <span style={{ fontSize: '1.6rem', fontWeight: '800', fontFamily: 'sans-serif', lineHeight: '1', color: 'var(--accent)', WebkitUserSelect: 'none', userSelect: 'none' }}>
+                      Ae
+                    </span>
+                  ) : skill.isAi ? (
+                    <span style={{ fontSize: '1.6rem', fontWeight: '800', fontFamily: 'sans-serif', lineHeight: '1', color: 'var(--accent)', WebkitUserSelect: 'none', userSelect: 'none' }}>
+                      Ai
+                    </span>
+                  ) : skill.img ? (
+                    <img src={skill.img} alt={skill.name} style={{ WebkitUserSelect: 'none', userSelect: 'none' }} />
+                  ) : (
+                    <i className={skill.icon}></i>
+                  )}
                 </div>
                 <span>{skill.name}</span>
                 <span className="skill-percent">{skill.percent}</span>
@@ -436,118 +718,72 @@ function App() {
 
       <div id="work">
         <h2 className="section-title">My Projects</h2>
-        <div className="project-card">
-          <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Web Application</small>
-            <h3>ULCMP4</h3>
-            <p>Universal Link Convertor , A clean, ad-free experience to convert social media links to high quality MP4/MP3.</p>
-            <div className="tech-stack"><small>REACT</small><small>TAILWIND</small><small>FFMPEG</small></div>
-            <div className="project-btns">
-                <a href="https://ulcmp4.onrender.com/" target="_blank" rel="noreferrer" className="btn btn-outline">Launch ULCMP4</a>
-                <a href="https://github.com/dakshsharma99ds/ULCMP4" target="_blank" rel="noreferrer" className="btn btn-outline">Source Code</a>
-            </div>
-          </div>
-          <div className="project-image">
-            <div className="wlinks-img-box"><img src="/ulc.png" alt="ulc" /></div>
-          </div>
+
+        <div className="project-filter-nav" ref={filterLinksRef}>
+          <div className="filter-active-pill" style={{
+            width: `${filterPillStyle.width}px`,
+            left: `${filterPillStyle.left}px`,
+            opacity: filterPillStyle.opacity
+          }}></div>
+          {[
+            { key: 'all', label: 'All' },
+            { key: 'webapp', label: 'Web App' },
+            { key: 'editing', label: 'Editing' },
+            { key: 'design', label: 'Design' }
+          ].map(f => (
+            <button
+              key={f.key}
+              data-filter={f.key}
+              className={activeFilter === f.key ? 'active' : ''}
+              onClick={() => {
+                setActiveFilter(f.key);
+                setIsFiltering(true);
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
 
-        <div className="project-card" style={{marginTop: '40px'}}>
-          <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Web Application</small>
-            <h3>WLinks</h3>
-            <p>A centralized link resource platform designed for ease of access, efficiency and speed.</p>
-            <div className="tech-stack"><small>REACT</small><small>FIGMA</small><small>JS</small></div>
-            <div className="project-btns">
-                <a href="https://wlinks.vercel.app/" target="_blank" rel="noreferrer" className="btn btn-outline">Launch Wlinks</a>
-                <a href="https://github.com/dakshsharma99ds/WLinks" target="_blank" rel="noreferrer" className="btn btn-outline">Source Code</a>
+        {projects.map((p, i) => {
+          const isVisible = activeFilter === 'all' || p.category === activeFilter;
+          return (
+            <div 
+              className={`project-card ${isVisible ? 'reveal-visible' : ''} ${isFiltering && isVisible ? 'reload-swipe' : ''}`} 
+              key={isFiltering ? `${p.id}-${activeFilter}` : p.id} 
+              style={{ marginTop: i === firstVisibleIndex ? '0' : '40px', display: isVisible ? 'grid' : 'none' }}
+            >
+              <div className="project-content">
+                <small style={{color: 'var(--accent)'}}>{p.label}</small>
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+                <div className="tech-stack">
+                  {p.stack.map(s => <small key={s}>{s}</small>)}
+                </div>
+                <div className="project-btns">
+                  {p.btns.map((btn, bi) =>
+                    btn.isVideo ? (
+                      <button key={bi} onClick={() => setSelectedVideo({ url: btn.videoUrl })} className="btn btn-outline">
+                        {btn.label}
+                      </button>
+                    ) : btn.isGraphic ? (
+                      <button key={bi} onClick={() => { setGraphicIndex(0); setSelectedGraphic(true); }} className="btn btn-outline">
+                        {btn.label}
+                      </button>
+                    ) : btn.isScrollTop ? (
+                      <a key={bi} href={btn.href} onClick={(e) => scrollToSection(e, 'top', 'start')} className="btn btn-outline">{btn.label}</a>
+                    ) : (
+                      <a key={bi} href={btn.href} target={btn.external ? '_blank' : undefined} rel={btn.external ? 'noreferrer' : undefined} className="btn btn-outline">{btn.label}</a>
+                    )
+                  )}
+                </div>
+              </div>
+              <div className="project-image">
+                <div className="wlinks-img-box"><img src={p.img} alt={p.imgAlt} /></div>
+              </div>
             </div>
-          </div>
-          <div className="project-image">
-            <div className="wlinks-img-box"><img src="/ss.png" alt="Wlinks" /></div>
-          </div>
-        </div>
-
-        <div className="project-card" style={{marginTop: '40px'}}>
-          <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
-            <h3>Recreated Intro</h3>
-            <p>Recreation of iconic Breaking Bad intro with custom name from scratch using Alight Motion.</p>
-            <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small></div>
-            <div className="project-btns">
-                <button 
-                  onClick={() => setSelectedVideo({ url: '/brba.mp4' })} 
-                  className="btn btn-outline"
-                >
-                  View Intro
-                </button>
-                <a href="https://drive.google.com/file/d/1nv2oyJPQy3YWdTlABHCeDrdCcV4nTK0-/view?usp=drive_link" target="_blank" rel="noreferrer" className="btn btn-outline">View Assets</a>
-            </div>
-          </div>
-          <div className="project-image">
-            <div className="wlinks-img-box"><img src="/brba.png" alt="brba" /></div>
-          </div>
-        </div>
-
-
-        <div className="project-card" style={{marginTop: '40px'}}>
-          <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
-            <h3>Recreated Intro</h3>
-            <p>Recreation of Michael movie title animation from scratch to demonstrate Path Trimming and Texture overlay in After Effects.</p>
-            <div className="tech-stack"><small>AFTER EFFECTS</small></div>
-            <div className="project-btns">
-                <button 
-                  onClick={() => setSelectedVideo({ url: '/Daksh-intro.mp4' })} 
-                  className="btn btn-outline"
-                >
-                  View Intro
-                </button>
-                <a href="https://drive.google.com/file/d/1oDM7oegCmEvSjPpUJ74BaTHLbAz7HK5B/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-outline">View AEP File</a>
-            </div>
-          </div>
-          <div className="project-image">
-            <div className="wlinks-img-box"><img src="/Daksh.png" alt="Daksh" /></div>
-          </div>
-        </div>
-
-
-        <div className="project-card" style={{marginTop: '40px'}}>
-          <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Motion/Editing</small>
-            <h3>Recreated Game Menu</h3>
-            <p>Recreation of Outlast game menu animation using Alight Motion and Affinity to demonstrate Masking, Lighting and Object overlay.</p>
-            <div className="tech-stack"><small>ALIGHT MOTION</small><small>AFFINITY</small></div>
-            <div className="project-btns">
-                <button 
-                  onClick={() => setSelectedVideo({ url: '/Outlast-intro.mp4' })} 
-                  className="btn btn-outline"
-                >
-                  View Intro
-                </button>
-                <a href="https://drive.google.com/file/d/1SmYHw8QYuaHHjBGSChldXmdIUe-2B9nc/view?usp=drive_link" target="_blank" rel="noreferrer" className="btn btn-outline">View Assets</a>
-            </div>
-          </div>
-          <div className="project-image">
-            <div className="wlinks-img-box"><img src="/out.png" alt="outlast" /></div>
-          </div>
-        </div>
-
-        <div className="project-card" style={{marginTop: '40px'}}>
-          <div className="project-content">
-            <small style={{color: 'var(--accent)'}}>Personal Building</small>
-            <h3>Portfolio</h3>
-            <p>A high-performance personal portfolio featuring smooth animations, neon aesthetics, and a responsive design.</p>
-            <div className="tech-stack"><small>REACT</small><small>CSS3</small><small>FIGMA</small></div>
-            <div className="project-btns">
-                <a href="#top" onClick={(e) => scrollToSection(e, 'top', 'start')} className="btn btn-outline">Launch Demo</a>
-                <a href="https://github.com/dakshsharma99ds/Daksh-Sharma-Portfolio" target="_blank" rel="noreferrer" className="btn btn-outline">Source Code</a>
-            </div>
-          </div>
-          <div className="project-image">
-            <div className="wlinks-img-box"><img src="/port.png" alt="Portfolio" /></div>
-          </div>
-        </div>
+          );
+        })}
       </div>
 
       <section id="learning">
@@ -595,7 +831,7 @@ function App() {
           <div className="contact-details">
             <div className="contact-item">
               <h4>Email</h4>
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dakshsharma999ds@gmail.com">dakshsharma999ds@gmail.com</a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dakshsharma999ds@gmail.com" target="_blank" rel="noreferrer">dakshsharma999ds@gmail.com</a>
             </div>
             <div className="contact-item">
               <h4>WhatsApp / Call</h4>
