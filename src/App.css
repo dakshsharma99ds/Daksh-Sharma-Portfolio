@@ -1382,30 +1382,21 @@ section {
     cursor: pointer;
 }
 
-/* Position these relative to the .graphic-wrapper edges */
-.graphic-nav-prev {
-    left: -50px; /* Adjust this value to bring them closer/further from the image */
+:fullscreen .graphic-stage *, 
+:fullscreen .graphic-stage img,
+:fullscreen .graphic-image-container img {
+    border-radius: 0 !important;
 }
 
-.graphic-nav-next {
-    right: -50px;
+:fullscreen .graphic-image-container {
+    border-radius: 0 !important;
+    overflow: visible !important;
 }
 
-/* The container holding the image and buttons */
 .graphic-wrapper {
-    position: relative; /* Buttons will now align to this container */
-    display: inline-block; /* Adjusts size to the image content */
-    max-width: 90vw;     /* Keeps it within screen bounds */
-}
-
-/* Mobile adjustments to prevent them from pushing outside the viewport */
-@media (max-width: 768px) {
-    .graphic-nav-prev { left: 10px; }
-    .graphic-nav-next { right: 10px; }
-}
-
-.graphic-nav-btn:hover {
-    transform: translateY(-50%);
+    position: relative;
+    display: inline-block;
+    max-width: 90vw;
 }
 
 .graphic-stage:fullscreen .graphic-nav-prev { left: 24px; }
@@ -1430,8 +1421,6 @@ section {
         height: 32px;
         font-size: 0.9rem;
     }
-    .graphic-nav-prev { left: 4px; }
-    .graphic-nav-next { right: 4px; }
     .graphic-tooltip {
         top: 44px;
         left: auto;
@@ -1453,4 +1442,38 @@ section {
 
 .graphic-highlight {
     color: var(--accent);
+}
+
+.graphic-nav-prev,
+.graphic-nav-next {
+    position: fixed !important;
+    top: 50%;
+    z-index: 1100;
+}
+
+.graphic-nav-prev {
+    left: calc(50% - 300px); 
+}
+
+.graphic-nav-next {
+    right: calc(50% - 300px); 
+}
+
+.graphic-nav-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+@media (max-width: 1024px) {
+    .graphic-nav-prev { left: calc(50% - 45vw); }
+    .graphic-nav-next { right: calc(50% - 45vw); }
+}
+
+@media (max-width: 768px) {
+    .graphic-nav-prev { left: 10px; }
+    .graphic-nav-next { right: 10px; }
+}
+
+@media (max-width: 600px) {
+    .graphic-nav-prev { left: 4px; }
+    .graphic-nav-next { right: 4px; }
 }
