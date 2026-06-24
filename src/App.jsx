@@ -428,7 +428,7 @@ function App() {
         { href: 'https://wlinks.vercel.app/', label: 'Launch Wlinks', external: true },
         { href: 'https://github.com/dakshsharma99ds/WLinks', label: 'Source Code', external: true }
       ],
-      img: '/ss.png',
+      img: '/wlink.png',
       imgAlt: 'Wlinks',
     },
     {
