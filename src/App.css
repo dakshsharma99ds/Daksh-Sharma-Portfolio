@@ -1461,15 +1461,15 @@ section {
     .graphic-stage:fullscreen .graphic-nav-btn {
         position: fixed !important;
         top: auto;
-        bottom: 24px;
+        bottom: 60px;
         left: 50%;
         transform: translateX(-50%);
     }
     .graphic-stage:fullscreen .graphic-nav-prev {
-        left: calc(50% - 30px);
+        left: calc(50% - 40px);
     }
     .graphic-stage:fullscreen .graphic-nav-next {
-        left: calc(50% + 14px);
+        left: calc(50% + 24px);
         right: auto;
     }
     .graphic-stage:fullscreen .graphic-nav-btn:hover {
