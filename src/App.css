@@ -1227,6 +1227,11 @@ section {
     cursor: pointer;
 }
 
+.replay-btn:hover {
+    background: #ffffff;
+    color: #d300f4;
+    transform: scale(1.1);
+}
 
 .graphic-modal-content {
     width: fit-content;
@@ -1437,6 +1442,38 @@ section {
     .graphic-fs-close {
         top: 12px;
         right: 12px;
+    }
+    .graphic-close-btn {
+        order: 4;
+    }
+    .graphic-toolbar .graphic-icon-btn:nth-child(2) {
+        order: 2;
+    }
+    .graphic-toolbar a.graphic-icon-btn {
+        order: 3;
+    }
+    .graphic-toolbar .graphic-icon-btn:nth-child(4) {
+        order: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .graphic-stage:fullscreen .graphic-nav-btn {
+        position: fixed !important;
+        top: auto;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .graphic-stage:fullscreen .graphic-nav-prev {
+        left: calc(50% - 30px);
+    }
+    .graphic-stage:fullscreen .graphic-nav-next {
+        left: calc(50% + 14px);
+        right: auto;
+    }
+    .graphic-stage:fullscreen .graphic-nav-btn:hover {
+        transform: translateX(-50%) scale(1.05);
     }
 }
 
