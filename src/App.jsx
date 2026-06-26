@@ -39,7 +39,7 @@ function App() {
   const labelText = " UI/UX • FRONTEND • EDITING";
   const devHeaderText = " Web Development";
   const designHeaderText = " Designing and Editing";
-  const descText = "I transform ideas into simple and beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, Alight motion, Photoshop and After effects.";
+  const descText = "I transform ideas into simple and beautiful digital products. Specializing in HTML, CSS, JS, React, Figma, Alight motion, Photoshop, Illustrator and After effects.";
 
   const skills = {
     development: [
