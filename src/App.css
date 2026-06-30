@@ -6,6 +6,16 @@
     --text-main: #ffffff;
     --text-dim: #b8a9c9;
     --grid-color: rgba(188, 19, 254, 0.05);
+    --scrollbar-width: 0px;
+}
+
+body.lock-scroll {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width);
+}
+
+body.lock-scroll nav {
+  padding-right: calc(10% + var(--scrollbar-width));
 }
 
 .aurora-left, .aurora-right {
@@ -88,6 +98,21 @@ body {
     animation: popupFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.hero-hidden-state {
+    opacity: 0;
+    transform: translateY(80px);
+}
+
+.hero-reveal-up {
+    opacity: 0;
+    animation: heroSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroSlideUp {
+    0% { opacity: 0; transform: translateY(80px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes swipeUpFade {
     0% { opacity: 0; transform: translateY(40px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -118,6 +143,21 @@ body {
 @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes zoomOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.9); opacity: 0; } }
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 nav {
     display: flex;
@@ -482,7 +522,7 @@ nav {
 .skills-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 60px;
     justify-content: center;
     margin-top: 40px;
 }
@@ -514,10 +554,10 @@ nav {
 }
 
 .skill-item.reveal-visible {
-    opacity: 1;
-    transform: scale(1);
-    animation: waveEffect 3s ease-in-out infinite;
-    animation-delay: calc(var(--delay) * 0.2s);
+    animation: 
+        popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both,
+        waveEffect 3s ease-in-out infinite;
+    animation-delay: calc(var(--delay) * 0.2s), calc((var(--delay) * 0.2s) + 0.6s);
 }
 
 .skill-circle {
@@ -1513,4 +1553,90 @@ section {
 @media (max-width: 600px) {
     .graphic-nav-prev { left: 4px; }
     .graphic-nav-next { right: 4px; }
+}
+
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.loader-stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    pointer-events: auto; 
+}
+
+.stripe {
+    flex: 1;
+    height: 100%;
+    background-color: color-mix(in srgb, var(--bg) 65%, color-mix(in srgb, var(--accent) 55%, black 45%) 35%);
+    transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+    will-change: transform;
+}
+
+.stripe.animate-up {
+    transform: translateY(-100%);
+}
+
+.loader-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    transition: opacity 0.4s ease, background-color 0.6s ease;
+}
+
+.loader-content.fade-out {
+    opacity: 0;
+}
+
+.loader-logo-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 30px;
+}
+
+.loader-logo-base, 
+.loader-logo-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.loader-logo-base {
+    filter: grayscale(100%) opacity(0.3); 
+}
+
+.loader-logo-fill {
+    transition: clip-path 0.1s linear;
+}
+
+.loader-percentage {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+@media (max-width: 768px) {
+    .loader-stripes { width: 120%; }
 }
