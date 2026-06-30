@@ -32,6 +32,7 @@ function App() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
   const [isLoaderExiting, setIsLoaderExiting] = useState(false);
+  const [isVideoFullscreen, setIsVideoFullscreen] = useState(false);
   
   const menuRef = useRef(null);
   const scrollRef = useRef(null);
@@ -110,6 +111,7 @@ function App() {
       setShowReplay(false);
       setVideoProgress(0);
       setIsVideoHovered(false);
+      setIsVideoFullscreen(false);
     }, 300);
   };
 
@@ -682,9 +684,9 @@ useEffect(() => {
       {selectedVideo && (
         <div className={`modal-overlay ${isClosing ? 'modal-fade-out' : ''}`} onClick={handleCloseModal}>
           <div className={`modal-content video-modal-content ${isClosing ? 'modal-zoom-out' : ''}`} onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={handleCloseModal}>&times;</button>
+            {!isVideoFullscreen && <button className="modal-close" onClick={handleCloseModal}>&times;</button>}
             <div
-                className="modal-video-container"
+                className={`modal-video-container ${isVideoFullscreen ? 'mobile-fs-active' : ''}`}
                 onClick={toggleVideo}
                 onMouseEnter={() => setIsVideoHovered(true)}
                 onMouseLeave={() => setIsVideoHovered(false)}
@@ -698,6 +700,18 @@ useEffect(() => {
                     preload="metadata"
                     style={{ width: '100%', height: 'auto', display: 'block' }}
                  />
+                 
+                {!isVideoFullscreen && (
+                    <button className="video-fs-btn" onClick={(e) => { e.stopPropagation(); setIsVideoFullscreen(true); }}>
+                        <i className="fa-solid fa-expand"></i>
+                    </button>
+                )}
+                {isVideoFullscreen && (
+                    <button className="video-fs-back-btn" onClick={(e) => { e.stopPropagation(); setIsVideoFullscreen(false); }}>
+                        <i className="fa-solid fa-arrow-left"></i>
+                    </button>
+                )}
+
                 <div
                     className={`video-progress-bar ${(isVideoHovered || !isVideoPlaying || isDraggingProgress) ? 'visible' : ''}`}
                     onClick={(e) => e.stopPropagation()}
@@ -1039,6 +1053,7 @@ useEffect(() => {
               <div style={{marginTop: '10px', display: 'flex', gap: '25px'}}>
                 <a href="https://github.com/dakshsharma99ds" target="_blank" rel="noreferrer"><i className="fa-brands fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/dakshsharma2939?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app/" target="_blank" rel="noreferrer"><i className="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="https://www.instagram.com/dakshsharma1249/?hl=en" target="_blank" rel="noreferrer"><i className="fa-brands fa-instagram"></i> Instagram</a>
               </div>
             </div>
           </div>
