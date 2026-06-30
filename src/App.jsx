@@ -7,6 +7,8 @@ function App() {
   const [designHeader, setDesignHeader] = useState("");
   const [description, setDescription] = useState("");
   const [isLoaded, setIsLoaded] = useState(false); 
+  const [isTextLoaded, setIsTextLoaded] = useState(false);
+  const [isPhotoLoaded, setIsPhotoLoaded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
@@ -23,6 +25,10 @@ function App() {
   const [selectedGraphic, setSelectedGraphic] = useState(null);
   const [graphicIndex, setGraphicIndex] = useState(0);
   const [isGraphicFullscreen, setIsGraphicFullscreen] = useState(false);
+
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isLoaderVisible, setIsLoaderVisible] = useState(true);
+  const [isLoaderExiting, setIsLoaderExiting] = useState(false);
   
   const menuRef = useRef(null);
   const scrollRef = useRef(null);
@@ -45,7 +51,7 @@ function App() {
     development: [
       { name: "HTML", icon: "fa-brands fa-html5", percent: "80%" },
       { name: "CSS", icon: "fa-brands fa-css3-alt", percent: "70%" },
-      { name: "JS", icon: "fa-brands fa-js", percent: "65%" },
+      { name: "JavaScript", icon: "fa-brands fa-js", percent: "65%" },
       { name: "ReactJS", icon: "fa-brands fa-react", percent: "51%" },
       { name: "Tailwind", isTailwindSvg: true, percent: "35%" }
     ],
@@ -153,6 +159,25 @@ function App() {
     }
   };
 
+  if (window.history.scrollRestoration) {
+  window.history.scrollRestoration = 'manual';
+}
+
+useEffect(() => {
+  const isLocked = isLoaderVisible || selectedCert || selectedVideo || selectedGraphic;
+
+  if (isLocked) {
+    const sw = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-width', `${sw}px`);
+    document.body.classList.add('lock-scroll');
+  } else {
+    document.body.classList.remove('lock-scroll');
+  }
+
+  return () => document.body.classList.remove('lock-scroll');
+}, [isLoaderVisible, selectedCert, selectedVideo, selectedGraphic]);
+
+
   const scrollToSection = (e, id, blockPosition = 'start') => {
     if (e) e.preventDefault();
     setIsMenuOpen(false);
@@ -174,7 +199,71 @@ function App() {
   };
 
   useEffect(() => {
-    // Silent preloading of graphic images on load
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 8) + 2; 
+      
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        setLoadingProgress(100);
+        
+        setTimeout(() => {
+          setIsLoaderExiting(true);
+          
+          setTimeout(() => {
+            setIsTextLoaded(true);
+          }, 500);
+          
+          setTimeout(() => {
+            setIsPhotoLoaded(true);
+          }, 700);
+
+          setTimeout(() => {
+            setIsLoaded(true);
+            setIsLoaderVisible(false);
+          }, 2400); 
+        }, 400); 
+      } else {
+        setLoadingProgress(progress);
+      }
+    }, 80);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!isTextLoaded) return;
+
+    let labelInterval, descInterval;
+
+    const typeString = (str, setter, speed = 50) => {
+      let i = 0;
+      setter("");
+      const interval = setInterval(() => {
+        i++;
+        setter(str.substring(0, i));
+        if (i >= str.length) clearInterval(interval);
+      }, speed);
+      return interval;
+    };
+
+    if (!hasTypedLabel.current) {
+      hasTypedLabel.current = true;
+      labelInterval = typeString(labelText, setLabel);
+    }
+    if (!hasTypedDesc.current) {
+      hasTypedDesc.current = true;
+      descInterval = typeString(descText, setDescription, 25);
+    }
+
+    return () => {
+      if (labelInterval) clearInterval(labelInterval);
+      if (descInterval) clearInterval(descInterval);
+    };
+  }, [isTextLoaded]);
+
+  useEffect(() => {
     graphicDesigns.forEach((design) => {
       const img = new Image();
       img.src = design.img;
@@ -237,8 +326,6 @@ function App() {
     hasTypedDev.current = false;
     hasTypedDesign.current = false;
 
-    setIsLoaded(true);
-
     const typeString = (str, setter, speed = 50) => {
       let i = 0;
       setter("");
@@ -250,18 +337,7 @@ function App() {
       return interval;
     };
 
-    let labelInterval, descInterval, devInterval, designInterval;
-
-    const timeoutId = setTimeout(() => {
-      if (!hasTypedLabel.current) {
-        hasTypedLabel.current = true;
-        labelInterval = typeString(labelText, setLabel);
-      }
-      if (!hasTypedDesc.current) {
-        hasTypedDesc.current = true;
-        descInterval = typeString(descText, setDescription, 25);
-      }
-    }, 100);
+    let devInterval, designInterval;
 
     const skillObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -375,9 +451,6 @@ function App() {
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      clearTimeout(timeoutId);
-      if (labelInterval) clearInterval(labelInterval);
-      if (descInterval) clearInterval(descInterval);
       if (devInterval) clearInterval(devInterval);
       if (designInterval) clearInterval(designInterval);
       revealElements.forEach(el => revealObserver.unobserve(el));
@@ -493,6 +566,36 @@ function App() {
 
   return (
     <div className="portfolio-container" id="top">
+      {isLoaderVisible && (
+        <div className={`loader-overlay ${isLoaderExiting ? 'exiting' : ''}`}>
+          <div className="loader-stripes">
+            {[...Array(12)].map((_, i) => (
+              <div 
+                key={i} 
+                className={`stripe ${isLoaderExiting ? 'animate-up' : ''}`} 
+                style={{ transitionDelay: `${i * 0.05}s` }}
+              ></div>
+            ))}
+          </div>
+          
+          <div 
+            className={`loader-content ${isLoaderExiting ? 'fade-out' : ''}`}
+            style={{ backgroundColor: `color-mix(in srgb, var(--bg) ${100 - (1 - Math.pow(1 - loadingProgress / 100, 3)) * 35}%, color-mix(in srgb, var(--accent) 55%, black 45%) ${(1 - Math.pow(1 - loadingProgress / 100, 3)) * 35}%)` }}
+          >
+            <div className="loader-logo-container">
+              <img src="/logo.svg" alt="Logo" className="loader-logo-base" />
+              <img 
+                src="/logo.svg" 
+                alt="Logo Fill" 
+                className="loader-logo-fill" 
+                style={{ clipPath: `inset(${100 - loadingProgress}% 0 0 0)` }} 
+              />
+            </div>
+            <div className="loader-percentage">{loadingProgress}%</div>
+          </div>
+        </div>
+      )}
+
       <div className="aurora-left"></div>
       <div className="aurora-right"></div>
       {selectedCert && (
@@ -638,14 +741,14 @@ function App() {
 
       <section className="hero" id="home">
         <div className="hero-text">
-          <div className="label-container">{label}<span className="typing"></span></div>
-          <h2 className={`name-gradient ${isLoaded ? 'reload-swipe' : 'hidden-state'}`}>DAKSH SHARMA</h2>
-          <h1 className={`${isLoaded ? 'reload-swipe' : 'hidden-state'}`}>
+          <div className={`label-container ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.1s' }}>{label}<span className="typing"></span></div>
+          <h2 className={`name-gradient ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.2s' }}>DAKSH SHARMA</h2>
+          <h1 className={`${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.3s' }}>
             <span>Always <span style={{color: 'var(--accent)'}}>Learning</span></span>
             <span><span style={{color: 'var(--accent)'}}>and</span> <span style={{color: 'var(--accent)'}}>Developing.</span></span>
           </h1>
-          <p className="hero-desc">{description}</p>
-          <div className={`hero-btns ${isLoaded ? 'reload-swipe' : 'hidden-state'}`}>
+          <p className={`hero-desc ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.4s' }}>{description}</p>
+          <div className={`hero-btns ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.5s' }}>
             <a href="#work" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'work', 'start')}>View My Work</a>
             <a href="/resume.pdf" className="btn-resume" download>
                 <span className="resume-icon"><i className="fa-solid fa-download"></i></span>
@@ -655,7 +758,7 @@ function App() {
         </div>
         <div className="photo-container">
           <div className="floating-container">
-            <div className={`profile-box ${isLoaded ? 'reload-pop' : 'hidden-state'}`}>
+            <div className={`profile-box ${isPhotoLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.3s' }}>
                <img src="/profile.png" alt="Daksh Sharma" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
           </div>
@@ -668,7 +771,7 @@ function App() {
           <h4 id="dev-h" className="typing-header">{devHeader}<span className="typing"></span></h4>
           <div className="skills-grid">
             {skills.development.map((skill, idx) => (
-              <div className="skill-item" key={idx} style={{ '--delay': idx }}>
+              <div className="skill-item" key={idx} style={{ '--delay': idx + 1 }}>
                 <div className="skill-circle">
                   {skill.isTailwindSvg ? (
                     <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor" style={{ color: 'var(--accent)', display: 'block', WebkitUserSelect: 'none', userSelect: 'none' }}>
@@ -690,7 +793,7 @@ function App() {
           <h4 id="design-h" className="typing-header">{designHeader}<span className="typing"></span></h4>
           <div className="skills-grid">
             {skills.design.map((skill, idx) => (
-              <div className="skill-item" key={idx} style={{ '--delay': idx }}>
+              <div className="skill-item" key={idx} style={{ '--delay': idx + 1 }}>
                 <div className="skill-circle">
                   {skill.isPs ? (
                     <span style={{ fontSize: '1.6rem', fontWeight: '800', fontFamily: 'sans-serif', lineHeight: '1', color: 'var(--accent)', WebkitUserSelect: 'none', userSelect: 'none' }}>
