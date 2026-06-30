@@ -1551,7 +1551,7 @@ section {
 }
 
 @media (max-width: 600px) {
-    .graphic-nav-prev { left: 4px; }
+    .graphic-nav-prev { left: 14px; }
     .graphic-nav-next { right: 4px; }
 }
 
