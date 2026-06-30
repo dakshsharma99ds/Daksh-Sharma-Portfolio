@@ -19,6 +19,9 @@ function App() {
   const [currentCertIndex, setCurrentCertIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showReplay, setShowReplay] = useState(false);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [isVideoHovered, setIsVideoHovered] = useState(false);
+  const [isDraggingProgress, setIsDraggingProgress] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const [filterPillStyle, setFilterPillStyle] = useState({ width: 0, left: 0, opacity: 0 });
   const [isFiltering, setIsFiltering] = useState(false);
@@ -35,6 +38,7 @@ function App() {
   const navLinksRef = useRef(null);
   const filterLinksRef = useRef(null);
   const videoRef = useRef(null);
+  const progressTrackRef = useRef(null);
   const graphicImageRef = useRef(null);
   const graphicTouchStartX = useRef(0);
   const hasTypedLabel = useRef(false);
@@ -104,6 +108,8 @@ function App() {
       setIsClosing(false);
       setIsVideoPlaying(false);
       setShowReplay(false);
+      setVideoProgress(0);
+      setIsVideoHovered(false);
     }, 300);
   };
 
@@ -148,6 +154,13 @@ function App() {
   const handleVideoEnd = () => {
     setIsVideoPlaying(false);
     setShowReplay(true);
+    setVideoProgress(100);
+  };
+
+  const handleVideoTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.duration) {
+      setVideoProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
+    }
   };
 
   const replayVideo = () => {
@@ -156,7 +169,61 @@ function App() {
       videoRef.current.play();
       setIsVideoPlaying(true);
       setShowReplay(false);
+      setVideoProgress(0);
     }
+  };
+
+  useEffect(() => {
+    if (selectedVideo && videoRef.current) {
+      videoRef.current.currentTime = 0;
+    }
+    setVideoProgress(0);
+  }, [selectedVideo]);
+
+  const seekFromClientX = (clientX) => {
+    const track = progressTrackRef.current;
+    if (!track || !videoRef.current || !videoRef.current.duration) return;
+    const rect = track.getBoundingClientRect();
+    let ratio = (clientX - rect.left) / rect.width;
+    ratio = Math.min(1, Math.max(0, ratio));
+    videoRef.current.currentTime = ratio * videoRef.current.duration;
+    setVideoProgress(ratio * 100);
+  };
+
+  const handleProgressPointerDown = (e) => {
+    e.stopPropagation();
+    setIsDraggingProgress(true);
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    seekFromClientX(clientX);
+  };
+
+  useEffect(() => {
+    if (!isDraggingProgress) return;
+    const handleMove = (e) => {
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      seekFromClientX(clientX);
+    };
+    const handleUp = () => setIsDraggingProgress(false);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('touchmove', handleMove);
+    window.addEventListener('touchend', handleUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('touchend', handleUp);
+    };
+  }, [isDraggingProgress]);
+
+  const goToCert = (idx) => {
+    const track = scrollRef.current;
+    if (!track) return;
+    const card = track.querySelector('.learning-card');
+    if (!card) return;
+    const cardWidth = card.offsetWidth + 20;
+    track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+    setCurrentCertIndex(idx);
   };
 
   if (window.history.scrollRestoration) {
@@ -616,15 +683,40 @@ useEffect(() => {
         <div className={`modal-overlay ${isClosing ? 'modal-fade-out' : ''}`} onClick={handleCloseModal}>
           <div className={`modal-content video-modal-content ${isClosing ? 'modal-zoom-out' : ''}`} onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={handleCloseModal}>&times;</button>
-            <div className="modal-video-container" onClick={toggleVideo}>
+            <div
+                className="modal-video-container"
+                onClick={toggleVideo}
+                onMouseEnter={() => setIsVideoHovered(true)}
+                onMouseLeave={() => setIsVideoHovered(false)}
+            >
                 <video 
                     ref={videoRef}
                     src={selectedVideo.url} 
                     onEnded={handleVideoEnd}
+                    onTimeUpdate={handleVideoTimeUpdate}
                     playsInline
                     preload="metadata"
                     style={{ width: '100%', height: 'auto', display: 'block' }}
                  />
+                <div
+                    className={`video-progress-bar ${(isVideoHovered || !isVideoPlaying || isDraggingProgress) ? 'visible' : ''}`}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div
+                        className="video-progress-track"
+                        ref={progressTrackRef}
+                        onMouseDown={handleProgressPointerDown}
+                        onTouchStart={handleProgressPointerDown}
+                    >
+                        <div className="video-progress-fill" style={{ width: `${videoProgress}%` }}></div>
+                        <div
+                            className="video-progress-dot"
+                            style={{ left: `${videoProgress}%` }}
+                            onMouseDown={handleProgressPointerDown}
+                            onTouchStart={handleProgressPointerDown}
+                        ></div>
+                    </div>
+                </div>
                 <div className={`video-play-btn hoverable ${isVideoPlaying ? 'fade-out' : ''} ${showReplay ? 'hidden' : ''}`}>
                     <i className={isVideoPlaying ? "fa-solid fa-pause" : "fa-solid fa-play"}></i>
                 </div>
@@ -922,7 +1014,7 @@ useEffect(() => {
 
         <div className="dot-indicator phone-only-dots">
             {certificates.map((_, idx) => (
-                <div key={idx} className={`dot ${currentCertIndex === idx ? 'active' : ''}`}></div>
+                <div key={idx} className={`dot ${currentCertIndex === idx ? 'active' : ''}`} onClick={() => goToCert(idx)}></div>
             ))}
         </div>
       </section>
