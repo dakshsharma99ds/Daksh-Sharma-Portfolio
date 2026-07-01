@@ -83,10 +83,10 @@ function App() {
   ];
 
   const graphicDesigns = [
-    { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link' },
-    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1FmVUpAiL42iPRjXwPqF0k8G4hHEoWj1g/view?usp=drive_link' },
-    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1RJFMbiRjz0Fh8wvKYbSjzTcKh8rShhrp/view?usp=drive_link' },
-    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/19Q8eR9eiuFzcneMQ_RB-biLytsrcdCeP/view?usp=sharing' },
+    { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link', fileLabel: 'AI' },
+    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1FmVUpAiL42iPRjXwPqF0k8G4hHEoWj1g/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1RJFMbiRjz0Fh8wvKYbSjzTcKh8rShhrp/view?usp=drive_link', fileLabel: 'Fig/PSD' },
+    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/19Q8eR9eiuFzcneMQ_RB-biLytsrcdCeP/view?usp=sharing', fileLabel: 'PSD' },
   ];
 
   const graphicHighlightWords = ['Adobe Illustrator', 'Figma', 'Adobe Photoshop'];
@@ -782,7 +782,7 @@ useEffect(() => {
               </div>
               <a href={graphicDesigns[graphicIndex].psd} target="_blank" rel="noreferrer" className="graphic-icon-btn hoverable">
                 <i className="fa-solid fa-download"></i>
-                <span className="graphic-tooltip graphic-tooltip-label">Download PSD File</span>
+                <span className="graphic-tooltip graphic-tooltip-label">Download {graphicDesigns[graphicIndex].fileLabel} File</span>
               </a>
               <button type="button" className="graphic-icon-btn hoverable" onClick={toggleGraphicFullscreen}>
                 <i className={`fa-solid ${isGraphicFullscreen ? 'fa-compress' : 'fa-expand'}`}></i>
