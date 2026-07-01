@@ -715,6 +715,8 @@ useEffect(() => {
                 <div
                     className={`video-progress-bar ${(isVideoHovered || !isVideoPlaying || isDraggingProgress) ? 'visible' : ''}`}
                     onClick={(e) => e.stopPropagation()}
+                    onMouseDown={handleProgressPointerDown}
+                    onTouchStart={handleProgressPointerDown}
                 >
                     <div
                         className="video-progress-track"
@@ -1050,7 +1052,7 @@ useEffect(() => {
             </div>
             <div className="contact-item">
               <h4>Digital Presence</h4>
-              <div style={{marginTop: '10px', display: 'flex', gap: '25px'}}>
+              <div className="digital-links" style={{marginTop: '10px', display: 'flex', gap: '25px'}}>
                 <a href="https://github.com/dakshsharma99ds" target="_blank" rel="noreferrer"><i className="fa-brands fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/dakshsharma2939?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app/" target="_blank" rel="noreferrer"><i className="fa-brands fa-linkedin"></i> LinkedIn</a>
                 <a href="https://www.instagram.com/dakshsharma1249/?hl=en" target="_blank" rel="noreferrer"><i className="fa-brands fa-instagram"></i> Instagram</a>
