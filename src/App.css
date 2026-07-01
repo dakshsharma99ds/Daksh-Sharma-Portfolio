@@ -18,6 +18,14 @@ body.lock-scroll nav {
   padding-right: calc(10% + var(--scrollbar-width));
 }
 
+body.lock-scroll .back-to-top {
+  right: calc(30px + var(--scrollbar-width));
+}
+
+body.lock-scroll .mobile-menu-container {
+  right: calc(5% + var(--scrollbar-width));
+}
+
 .aurora-left, .aurora-right {
     position: fixed;
     top: -100px;
@@ -171,6 +179,7 @@ nav {
     background: transparent;
     backdrop-filter: none;
     border-bottom: none;
+    pointer-events: none;
 }
 
 .nav-links {
@@ -185,6 +194,7 @@ nav {
     border-radius: 100px;
     border: 1px solid rgba(188, 19, 254, 0.15);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    pointer-events: auto;
 }
 
 .nav-active-pill {
@@ -223,6 +233,7 @@ nav {
     font-size: 1.1rem;
     letter-spacing: 0.5px;
     transition: all 0.4s ease;
+    pointer-events: auto;
 }
 
 .mobile-nav-brand.active-brand {
@@ -234,6 +245,7 @@ nav {
     display: none;
     position: absolute;
     right: 5%;
+    pointer-events: auto;
 }
 
 .hamburger {
@@ -963,6 +975,13 @@ nav {
     color: var(--accent); 
 }
 
+@media (max-width: 768px) {
+    .digital-links {
+        flex-wrap: wrap;
+        row-gap: 10px !important;
+    }
+}
+
 .back-to-top {
     position: fixed;
     bottom: 30px;
@@ -978,7 +997,7 @@ nav {
     text-decoration: none;
     z-index: 1000;
     box-shadow: 0 0 20px var(--accent-glow);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     border: none;
     opacity: 0;
@@ -1179,8 +1198,6 @@ nav {
     .hero-desc { text-align: center !important; }
     .nav-bubble a { border-radius: 8px !important; }
     .hero-text .label-container{margin-top: -23px;}
-
-    /* New Mobile Video Fullscreen Buttons */
     .video-fs-btn {
         display: flex;
         position: absolute;
@@ -1215,7 +1232,6 @@ nav {
         backdrop-filter: blur(5px);
     }
 
-    /* Mobile Fullscreen Video Active State */
     .modal-video-container.mobile-fs-active {
         position: fixed !important;
         top: 0 !important;
@@ -1234,7 +1250,6 @@ nav {
         border-radius: 0 !important;
     }
 
-    /* YouTube Style Edge Progress Bar Adjustments for Mobile */
     .modal-video-container {
         overflow: visible !important;
     }
