@@ -438,8 +438,28 @@ useEffect(() => {
       });
     }, { threshold: 0.1 });
 
-    const revealElements = document.querySelectorAll('.project-card, .skill-item');
+    const isMobileSkillsView = window.innerWidth <= 768;
+
+    const revealElements = isMobileSkillsView
+      ? document.querySelectorAll('.project-card')
+      : document.querySelectorAll('.project-card, .skill-item');
     revealElements.forEach(el => revealObserver.observe(el));
+
+    let skillCategoryObserver;
+    if (isMobileSkillsView) {
+      skillCategoryObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.skill-item').forEach(item => {
+              item.classList.add('reveal-visible');
+            });
+            skillCategoryObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.skill-category').forEach(cat => skillCategoryObserver.observe(cat));
+    }
 
     const handleManualScroll = () => {
       const sections = [
@@ -523,6 +543,7 @@ useEffect(() => {
       if (devInterval) clearInterval(devInterval);
       if (designInterval) clearInterval(designInterval);
       revealElements.forEach(el => revealObserver.unobserve(el));
+      if (skillCategoryObserver) skillCategoryObserver.disconnect();
       window.removeEventListener("scroll", throttledScroll);
       window.removeEventListener("scroll", handleBackToTop);
       document.removeEventListener("mousedown", handleClickOutside);
