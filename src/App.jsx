@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import VanillaTilt from 'vanilla-tilt';
 import './App.css';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
   const hasTypedDesc = useRef(false);
   const hasTypedDev = useRef(false);
   const hasTypedDesign = useRef(false);
+  const profileBoxRef = useRef(null);
 
   const labelText = " UI/UX • FRONTEND • EDITING";
   const devHeaderText = " Web Development";
@@ -551,6 +553,17 @@ useEffect(() => {
     };
   }, []);
 
+  useEffect(() => {
+    if (profileBoxRef.current) {
+      VanillaTilt.init(profileBoxRef.current, { reverse: true, "full-page-listening": true });
+    }
+    return () => {
+      if (profileBoxRef.current && profileBoxRef.current.vanillaTilt) {
+        profileBoxRef.current.vanillaTilt.destroy();
+      }
+    };
+  }, []);
+
   const projects = [
     {
       id: 'graphic',
@@ -887,7 +900,7 @@ useEffect(() => {
         </div>
         <div className="photo-container">
           <div className="floating-container">
-            <div className={`profile-box ${isPhotoLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.3s' }}>
+            <div ref={profileBoxRef} className={`profile-box ${isPhotoLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.3s' }} onAnimationEnd={(e) => { if (e.animationName === 'heroSlideUp') { e.currentTarget.style.opacity = '1'; e.currentTarget.style.animation = 'none'; } }}>
                <img src="/profile.png" alt="Daksh Sharma" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
           </div>
