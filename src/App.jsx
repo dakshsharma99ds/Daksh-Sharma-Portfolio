@@ -554,10 +554,24 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    if (profileBoxRef.current) {
-      VanillaTilt.init(profileBoxRef.current, { reverse: true, "full-page-listening": true });
-    }
+    const mobileQuery = window.matchMedia('(max-width: 968px)');
+
+    const syncTilt = () => {
+      if (!profileBoxRef.current) return;
+      if (mobileQuery.matches) {
+        if (profileBoxRef.current.vanillaTilt) {
+          profileBoxRef.current.vanillaTilt.destroy();
+        }
+      } else if (!profileBoxRef.current.vanillaTilt) {
+        VanillaTilt.init(profileBoxRef.current, { reverse: true, "full-page-listening": true });
+      }
+    };
+
+    syncTilt();
+    mobileQuery.addEventListener('change', syncTilt);
+
     return () => {
+      mobileQuery.removeEventListener('change', syncTilt);
       if (profileBoxRef.current && profileBoxRef.current.vanillaTilt) {
         profileBoxRef.current.vanillaTilt.destroy();
       }
