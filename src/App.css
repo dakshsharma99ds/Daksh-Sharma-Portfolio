@@ -493,7 +493,7 @@ nav {
 }
 
 .photo-container:hover {
-    transform: scale(1.05);
+    transform: scale(1.10);
 }
 
 .floating-container {
@@ -1792,4 +1792,10 @@ section {
 
 @media (max-width: 768px) {
     .loader-stripes { width: 120%; }
+    .photo-container{
+        margin-top: 30px;
+    }
+    .photo-container:hover {
+    transform: scale(1.05);
+}
 }
