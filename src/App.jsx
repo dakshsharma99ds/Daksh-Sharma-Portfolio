@@ -88,7 +88,7 @@ function App() {
     { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link', fileLabel: 'AI' },
     { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1di3iRrTJv2BGBYtzh82Wk5ZVq-mlLHGj/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1RJFMbiRjz0Fh8wvKYbSjzTcKh8rShhrp/view?usp=drive_link', fileLabel: 'Fig/PSD' },
-    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1P5ZCTPbK8pZAdbXodN8T3r2wcb8m57F2/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1JcwYMbqWGyHUYctcvnKq7_8gBIexZCGs/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 5, img: '/anish.png', title: 'Birthday Poster', desc: 'A vibrant, pop-art style birthday poster featuring a high-contrast portrait with a multicolored grid, designed in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1jOlE6Q_FQ8h2k08oKZ0KiRKz1VFFwXJ0/view?usp=drive_link', fileLabel: 'PSD' },
   ];
 
@@ -589,7 +589,7 @@ useEffect(() => {
       stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
       btns: [
         { label: 'View Designs', isGraphic: true },
-        { href: 'https://drive.google.com/file/d/1eVQeFzQz_mcVitV3_ikDfbImYyJ-F5Ly/view?usp=drive_link', label: 'View PSD/AI File', external: true }
+        { href: 'https://drive.google.com/file/d/18MRM-3p2G-F8bUyYnsc5xl-7kZt0LOn4/view?usp=drive_link', label: 'View PSD/AI File', external: true }
       ],
       img: '/gra.png',
       imgAlt: 'Graphics'
