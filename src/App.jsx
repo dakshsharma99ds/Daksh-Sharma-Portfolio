@@ -90,6 +90,7 @@ function App() {
     { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1RJFMbiRjz0Fh8wvKYbSjzTcKh8rShhrp/view?usp=drive_link', fileLabel: 'Fig/PSD' },
     { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1JcwYMbqWGyHUYctcvnKq7_8gBIexZCGs/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 5, img: '/anish.png', title: 'Birthday Poster', desc: 'A vibrant, pop-art style birthday poster featuring a high-contrast portrait with a multicolored grid, designed in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1jOlE6Q_FQ8h2k08oKZ0KiRKz1VFFwXJ0/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 6, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1SnjdtXvNzt8ppTZ_oqdnZnODgDnHUymA/view?usp=drive_link', fileLabel: 'AI' },
   ];
 
   const graphicHighlightWords = ['Adobe Illustrator', 'Figma', 'Adobe Photoshop'];
@@ -589,7 +590,7 @@ useEffect(() => {
       stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
       btns: [
         { label: 'View Designs', isGraphic: true },
-        { href: 'https://drive.google.com/file/d/18MRM-3p2G-F8bUyYnsc5xl-7kZt0LOn4/view?usp=drive_link', label: 'View PSD/AI File', external: true }
+        { href: 'https://drive.google.com/file/d/18-BNlHhCsJ8SXEeDaqW2g-ETNSP2RvNK/view?usp=drive_link', label: 'View PSD/AI File', external: true }
       ],
       img: '/gra.png',
       imgAlt: 'Graphics'
