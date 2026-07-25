@@ -87,10 +87,12 @@ function App() {
   const graphicDesigns = [
     { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link', fileLabel: 'AI' },
     { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1di3iRrTJv2BGBYtzh82Wk5ZVq-mlLHGj/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1RJFMbiRjz0Fh8wvKYbSjzTcKh8rShhrp/view?usp=drive_link', fileLabel: 'Fig/PSD' },
+    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1KhKPF1Kc3UUOnl9hDm_QwEkAHjALduvb/view?usp=drive_link', fileLabel: 'Fig/PSD' },
     { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1JcwYMbqWGyHUYctcvnKq7_8gBIexZCGs/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 5, img: '/anish.png', title: 'Birthday Poster', desc: 'A vibrant, pop-art style birthday poster featuring a high-contrast portrait with a multicolored grid, designed in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1jOlE6Q_FQ8h2k08oKZ0KiRKz1VFFwXJ0/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 6, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1SnjdtXvNzt8ppTZ_oqdnZnODgDnHUymA/view?usp=drive_link', fileLabel: 'AI' },
+    { id: 6, img: '/protest.png', title: 'Death of Democracy', desc: 'Political poster on the illegal abduction of Sonam Wangchuk from the protest site, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1mNzFt2SiuR6u5KN36YeG_vD7-sMlx4Zj/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 7, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1SnjdtXvNzt8ppTZ_oqdnZnODgDnHUymA/view?usp=drive_link', fileLabel: 'AI' },
+    { id: 8, img: '/care.png', title: 'They Don’t Care', desc: 'Striking grunge-style Political protest poster featuring gritty textures and heavy typography, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1TpF1JUNmgW_KdLpgMJOvON-yafyIaDEZ/view?usp=drive_link', fileLabel: 'PSD' },
   ];
 
   const graphicHighlightWords = ['Adobe Illustrator', 'Figma', 'Adobe Photoshop'];
@@ -590,7 +592,7 @@ useEffect(() => {
       stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
       btns: [
         { label: 'View Designs', isGraphic: true },
-        { href: 'https://drive.google.com/file/d/18-BNlHhCsJ8SXEeDaqW2g-ETNSP2RvNK/view?usp=drive_link', label: 'View PSD/AI File', external: true }
+        { href: 'https://drive.google.com/file/d/1g0fzrqeFc3xOaAF0drgtLQRhFpcwKN5_/view?usp=drive_link', label: 'View Files', external: true }
       ],
       img: '/gra.png',
       imgAlt: 'Graphics'
@@ -646,7 +648,7 @@ useEffect(() => {
       stack: ['AFTER EFFECTS'],
       btns: [
         { label: 'View Intro', isVideo: true, videoUrl: '/Daksh-intro.mp4' },
-        { href: 'https://drive.google.com/file/d/1oDM7oegCmEvSjPpUJ74BaTHLbAz7HK5B/view?usp=sharing', label: 'View AEP File', external: true }
+        { href: 'https://drive.google.com/file/d/1oDM7oegCmEvSjPpUJ74BaTHLbAz7HK5B/view?usp=sharing', label: 'View Assets', external: true }
       ],
       img: '/Daksh.png',
       imgAlt: 'Daksh',
@@ -664,6 +666,20 @@ useEffect(() => {
       ],
       img: '/out.png',
       imgAlt: 'outlast',
+    },
+   {
+      id: 'logo',
+      category: 'design',
+      label: 'Logo Designing',
+      title: 'Brand Logo Design',
+      desc: 'A minimal brand logo presentation for "ChatLee" with Lexend typography, varients, and mock-ups.',
+      stack: ['ILLUSTRATOR', 'FIGMA'],
+      btns: [
+        { href: 'https://drive.google.com/file/d/1roBmmFMH4F3uvytlkE32G-Z9cI-vM68Y/view?usp=drive_link', label: 'View Logo', external: true },
+        { href: 'https://drive.google.com/file/d/10P_BayTmshiCG5kB5IQmucJknz41vLuN/view?usp=drive_link', label: 'View Files', external: true }
+      ],
+      img: '/chat.png',
+      imgAlt: 'Wlinks',
     },
     {
       id: 'portfolio',
@@ -908,7 +924,7 @@ useEffect(() => {
           <p className={`hero-desc ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.4s' }}>{description}</p>
           <div className={`hero-btns ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.5s' }}>
             <a href="#work" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'work', 'start')}>View My Work</a>
-            <a href="/resume.pdf" className="btn-resume" download>
+            <a href="/Daksh-Sharma-Resume.pdf" className="btn-resume" download>
                 <span className="resume-icon"><i className="fa-solid fa-download"></i></span>
                 <span className="resume-text">My Resume</span>
             </a>
