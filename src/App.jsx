@@ -86,12 +86,12 @@ function App() {
 
   const graphicDesigns = [
     { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link', fileLabel: 'AI' },
-    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1di3iRrTJv2BGBYtzh82Wk5ZVq-mlLHGj/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1gQDzSQUjG_5WeLCXMtQQb0R_bTe6JpIX/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1KhKPF1Kc3UUOnl9hDm_QwEkAHjALduvb/view?usp=drive_link', fileLabel: 'Fig/PSD' },
     { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1JcwYMbqWGyHUYctcvnKq7_8gBIexZCGs/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 5, img: '/anish.png', title: 'Birthday Poster', desc: 'A vibrant, pop-art style birthday poster featuring a high-contrast portrait with a multicolored grid, designed in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1jOlE6Q_FQ8h2k08oKZ0KiRKz1VFFwXJ0/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 6, img: '/protest.png', title: 'Death of Democracy', desc: 'Political poster on the illegal abduction of Sonam Wangchuk from the protest site, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1mNzFt2SiuR6u5KN36YeG_vD7-sMlx4Zj/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 7, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1SnjdtXvNzt8ppTZ_oqdnZnODgDnHUymA/view?usp=drive_link', fileLabel: 'AI' },
+    { id: 7, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1tLT0Io3ZwJXd5-HhzJAslIdH1haRKwdw/view?usp=drive_link', fileLabel: 'AI' },
     { id: 8, img: '/care.png', title: 'They Don’t Care', desc: 'Striking grunge-style Political protest poster featuring gritty textures and heavy typography, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1TpF1JUNmgW_KdLpgMJOvON-yafyIaDEZ/view?usp=drive_link', fileLabel: 'PSD' },
   ];
 
@@ -592,7 +592,7 @@ useEffect(() => {
       stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
       btns: [
         { label: 'View Designs', isGraphic: true },
-        { href: 'https://drive.google.com/file/d/1g0fzrqeFc3xOaAF0drgtLQRhFpcwKN5_/view?usp=drive_link', label: 'View Files', external: true }
+        { href: 'https://drive.google.com/file/d/14YjZrgKzdZuAy79yevFWosoHl9PMrzcF/view?usp=drive_link', label: 'View Files', external: true }
       ],
       img: '/gra.png',
       imgAlt: 'Graphics'
