@@ -924,7 +924,7 @@ useEffect(() => {
           <p className={`hero-desc ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.4s' }}>{description}</p>
           <div className={`hero-btns ${isTextLoaded ? 'hero-reveal-up' : 'hero-hidden-state'}`} style={{ animationDelay: '0.5s' }}>
             <a href="#work" className="btn btn-primary" onClick={(e) => scrollToSection(e, 'work', 'start')}>View My Work</a>
-            <a href="/Daksh-Sharma-Resume.pdf" className="btn-resume" download>
+            <a href="/Daksh Sharma Resume.pdf" className="btn-resume" download>
                 <span className="resume-icon"><i className="fa-solid fa-download"></i></span>
                 <span className="resume-text">My Resume</span>
             </a>
