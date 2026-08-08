@@ -93,6 +93,7 @@ function App() {
     { id: 6, img: '/protest.png', title: 'Death of Democracy', desc: 'Political poster on the illegal abduction of Sonam Wangchuk from the protest site, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1mNzFt2SiuR6u5KN36YeG_vD7-sMlx4Zj/view?usp=drive_link', fileLabel: 'PSD' },
     { id: 7, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1tLT0Io3ZwJXd5-HhzJAslIdH1haRKwdw/view?usp=drive_link', fileLabel: 'AI' },
     { id: 8, img: '/care.png', title: 'They Don’t Care', desc: 'Striking grunge-style Political protest poster featuring gritty textures and heavy typography, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1TpF1JUNmgW_KdLpgMJOvON-yafyIaDEZ/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 9, img: '/phone.png', title: 'Samsung Phone Promo', desc: 'Promotional commercial advertisement poster for the Samsung Galaxy S24 Ultra, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1TNWTVMzNbgVOMZPys9IKUCTjfEeWs7Kl/view?usp=drive_link', fileLabel: 'PSD' },
   ];
 
   const graphicHighlightWords = ['Adobe Illustrator', 'Figma', 'Adobe Photoshop'];
@@ -592,7 +593,7 @@ useEffect(() => {
       stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
       btns: [
         { label: 'View Designs', isGraphic: true },
-        { href: 'https://drive.google.com/file/d/14YjZrgKzdZuAy79yevFWosoHl9PMrzcF/view?usp=drive_link', label: 'View Files', external: true }
+        { href: 'https://drive.google.com/file/d/1Kw0eSwBRuQemz6azp6r2FS72nMfYn9Qb/view?usp=drive_link', label: 'View Files', external: true }
       ],
       img: '/gra.png',
       imgAlt: 'Graphics'
