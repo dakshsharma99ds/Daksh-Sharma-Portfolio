@@ -85,15 +85,15 @@ function App() {
   ];
 
   const graphicDesigns = [
-    { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1kiVGP5MlRlmIeIcwO5i5m0lzE72uwd4w/view?usp=drive_link', fileLabel: 'AI' },
-    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1gQDzSQUjG_5WeLCXMtQQb0R_bTe6JpIX/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1KhKPF1Kc3UUOnl9hDm_QwEkAHjALduvb/view?usp=drive_link', fileLabel: 'Fig/PSD' },
-    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1JcwYMbqWGyHUYctcvnKq7_8gBIexZCGs/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 5, img: '/anish.png', title: 'Birthday Poster', desc: 'A vibrant, pop-art style birthday poster featuring a high-contrast portrait with a multicolored grid, designed in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1jOlE6Q_FQ8h2k08oKZ0KiRKz1VFFwXJ0/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 6, img: '/protest.png', title: 'Death of Democracy', desc: 'Political poster on the illegal abduction of Sonam Wangchuk from the protest site, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1mNzFt2SiuR6u5KN36YeG_vD7-sMlx4Zj/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 7, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1tLT0Io3ZwJXd5-HhzJAslIdH1haRKwdw/view?usp=drive_link', fileLabel: 'AI' },
-    { id: 8, img: '/care.png', title: 'They Don’t Care', desc: 'Striking grunge-style Political protest poster featuring gritty textures and heavy typography, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1TpF1JUNmgW_KdLpgMJOvON-yafyIaDEZ/view?usp=drive_link', fileLabel: 'PSD' },
-    { id: 9, img: '/phone.png', title: 'Samsung Phone Promo', desc: 'Promotional commercial advertisement poster for the Samsung Galaxy S24 Ultra, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1TNWTVMzNbgVOMZPys9IKUCTjfEeWs7Kl/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 1, img: '/inflated.png', title: 'Inflated Life', desc: 'A 3D vector illustration featuring an inflated chrome aesthetic, fully crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1CenAx9GB0NhReF3C3ztA8Upab9lKnJlm/view?usp=drive_link', fileLabel: 'AI' },
+    { id: 2, img: '/music.png', title: 'Art of Music', desc: ' Serif Brutalist music poster in Adobe Photoshop, combining inverse effects, noise textures, and sharp typography.', psd: 'https://drive.google.com/file/d/1xnz5qXbGG_lhbXvLvUMgkCLKx0DikU4i/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 3, img: '/circle.png', title: 'Traces of Circles', desc: 'Graphic designing with circle, base designed in Figma, finished with high-quality textures and color grading in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1WOMIMsPHrLP8Ast6GYAQ0SRogZYrQTtR/view?usp=drive_link', fileLabel: 'Fig/PSD' },
+    { id: 4, img: '/punk.png', title: 'Punk Era', desc: 'Punk-inspired digital poster, featuring high-grain textures and a clean design hierarchy, crafted in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1lXhLJsrVAG7I5YiLsXEaWeeQUt2QG_xk/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 5, img: '/anish.png', title: 'Birthday Poster', desc: 'A vibrant, pop-art style birthday poster featuring a high-contrast portrait with a multicolored grid, designed in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1fqDDIoL8QxtxNN4L8BJ2DwJZkjFX0Smw/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 6, img: '/protest.png', title: 'Death of Democracy', desc: 'Political poster on the illegal abduction of Sonam Wangchuk from the protest site, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1mS8a-jmeTYbqTFmkbSbsN4tkMcTMMc3z/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 7, img: '/poke.png', title: 'Nintendo', desc: 'A nostalgic GBA tribute poster featuring vibrant vector art and Japanese typography, crafted in Adobe Illustrator.', psd: 'https://drive.google.com/file/d/1QzLVJMWV7NDVM01Aunu74cN4ndiTSPyY/view?usp=drive_link', fileLabel: 'AI' },
+    { id: 8, img: '/care.png', title: 'They Don’t Care', desc: 'Striking grunge-style Political protest poster featuring gritty textures and heavy typography, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1ktrCa0d6NuI6yL9IYDgg1P6HFk6z6NSM/view?usp=drive_link', fileLabel: 'PSD' },
+    { id: 9, img: '/phone.png', title: 'Samsung Phone Promo', desc: 'Promotional commercial advertisement poster for the Samsung Galaxy S24 Ultra, made in Adobe Photoshop.', psd: 'https://drive.google.com/file/d/1tuRyxxScCOym9BtI5NH7hq7IFuPzaWQU/view?usp=drive_link', fileLabel: 'PSD' },
   ];
 
   const graphicHighlightWords = ['Adobe Illustrator', 'Figma', 'Adobe Photoshop'];
@@ -593,7 +593,7 @@ useEffect(() => {
       stack: ['PHOTOSHOP', 'ILLUSTRATOR', 'FIGMA'],
       btns: [
         { label: 'View Designs', isGraphic: true },
-        { href: 'https://drive.google.com/file/d/1Kw0eSwBRuQemz6azp6r2FS72nMfYn9Qb/view?usp=drive_link', label: 'View Files', external: true }
+        { href: 'https://drive.google.com/file/d/10Adl1jWSQV59bnkfaXe_xI-XpLPpsN0g/view?usp=drive_link', label: 'View Files', external: true }
       ],
       img: '/gra.png',
       imgAlt: 'Graphics'
@@ -635,7 +635,7 @@ useEffect(() => {
       stack: ['ALIGHT MOTION', 'AFFINITY'],
       btns: [
         { label: 'View Intro', isVideo: true, videoUrl: '/brba.mp4' },
-        { href: 'https://drive.google.com/file/d/1nv2oyJPQy3YWdTlABHCeDrdCcV4nTK0-/view?usp=drive_link', label: 'View Assets', external: true }
+        { href: 'https://drive.google.com/file/d/1rZWJMm0yhEU0zGpjMSEJFl69Su5mLRCr/view?usp=drive_link', label: 'View Assets', external: true }
       ],
       img: '/brba.png',
       imgAlt: 'brba',
@@ -649,7 +649,7 @@ useEffect(() => {
       stack: ['AFTER EFFECTS'],
       btns: [
         { label: 'View Intro', isVideo: true, videoUrl: '/Daksh-intro.mp4' },
-        { href: 'https://drive.google.com/file/d/1oDM7oegCmEvSjPpUJ74BaTHLbAz7HK5B/view?usp=sharing', label: 'View Assets', external: true }
+        { href: 'https://drive.google.com/file/d/1AB9jVXyTRH4uXfgWxAFFjal5bEQ7f_SK/view?usp=drive_link', label: 'View Assets', external: true }
       ],
       img: '/Daksh.png',
       imgAlt: 'Daksh',
@@ -663,7 +663,7 @@ useEffect(() => {
       stack: ['ALIGHT MOTION', 'AFFINITY'],
       btns: [
         { label: 'View Intro', isVideo: true, videoUrl: '/Outlast-intro.mp4' },
-        { href: 'https://drive.google.com/file/d/1SmYHw8QYuaHHjBGSChldXmdIUe-2B9nc/view?usp=drive_link', label: 'View Assets', external: true }
+        { href: 'https://drive.google.com/file/d/1T89u-1zLhhWzMgkkIguw9iZMHK9NX8Z8/view?usp=drive_link', label: 'View Assets', external: true }
       ],
       img: '/out.png',
       imgAlt: 'outlast',
@@ -676,8 +676,8 @@ useEffect(() => {
       desc: 'A minimal brand logo presentation for "ChatLee" with Lexend typography, varients, and mock-ups.',
       stack: ['ILLUSTRATOR', 'FIGMA'],
       btns: [
-        { href: 'https://drive.google.com/file/d/1roBmmFMH4F3uvytlkE32G-Z9cI-vM68Y/view?usp=drive_link', label: 'View Logo', external: true },
-        { href: 'https://drive.google.com/file/d/10P_BayTmshiCG5kB5IQmucJknz41vLuN/view?usp=drive_link', label: 'View Files', external: true }
+        { href: 'https://drive.google.com/file/d/1gajLi9Agrw9wPvWynsaG0yTwDvv6OlzC/view?usp=drive_link', label: 'View Logo', external: true },
+        { href: 'https://drive.google.com/file/d/1LgxirEe4ljw3gi6431WQXDie5HOcReGL/view?usp=drive_link', label: 'View Files', external: true }
       ],
       img: '/chat.png',
       imgAlt: 'Wlinks',
