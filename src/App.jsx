@@ -38,6 +38,7 @@ function App() {
   const menuRef = useRef(null);
   const scrollRef = useRef(null);
   const navLinksRef = useRef(null);
+  const isManualScrollRef = useRef(false);
   const filterLinksRef = useRef(null);
   const videoRef = useRef(null);
   const progressTrackRef = useRef(null);
@@ -258,6 +259,12 @@ useEffect(() => {
     if (e) e.preventDefault();
     setIsMenuOpen(false);
     
+    isManualScrollRef.current = true;
+    clearTimeout(isManualScrollRef.timeout);
+    isManualScrollRef.timeout = setTimeout(() => {
+      isManualScrollRef.current = false;
+    }, 1000);
+
     if (id === 'top' || id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setActiveSection('home');
@@ -469,6 +476,8 @@ useEffect(() => {
     }
 
     const handleManualScroll = () => {
+      if (isManualScrollRef.current) return;
+
       const sections = [
         { id: 'home', element: document.getElementById('home') },
         { id: 'skills', element: document.getElementById('skills') },
